@@ -69,7 +69,7 @@ const CONFIG_IMAGENS = {
     ],
     gostos: [
         "https://i.pinimg.com/1200x/c0/09/e3/c009e3432f53b1e0ff06de3c7b99f6fd.jpg",
-        "imagens/gosto2.jpg",
+        "imagens/gosto2.png",
         "https://i.pinimg.com/736x/de/74/f1/de74f121fa90f0d8cd6b47d59c5c8590.jpg",
         "https://i.pinimg.com/1200x/5d/78/85/5d788520ba606cecc27f7a1a70c153e9.jpg",
         "https://i.pinimg.com/736x/af/40/08/af4008b714477e737c9f35d613e7ac17.jpg",
@@ -1690,3 +1690,4 @@ style.textContent = `
     }
 `;
 document.head.appendChild(style);
+
