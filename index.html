@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Um Presente Especial Para Você</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Tela de Surpresa Inicial -->
+    <section id="surpresa" class="surpresa-section">
+        <div class="surpresa-container">
+            <div class="flor flor-1"></div>
+            <div class="flor flor-2"></div>
+            <div class="flor flor-3"></div>
+            
+            <div class="surpresa-conteudo">
+                <h1 class="titulo-surpresa">Para Você</h1>
+                
+                <div class="coracao-pulsante">
+                    <i class="fas fa-heart"></i>
+                </div>
+                
+                <p class="subtitulo-surpresa">Algo especial está prestes a acontecer...</p>
+                
+                <div class="contador-surpresa">
+                    <span id="contador">3</span>
+                </div>
+            </div>
+            
+            <div class="estrelas">
+                <div class="estrela"></div>
+                <div class="estrela"></div>
+                <div class="estrela"></div>
+                <div class="estrela"></div>
+                <div class="estrela"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tela de Boas-Vindas -->
+    <section id="boas-vindas" class="boas-vindas-section">
+        <div class="boas-vindas-container">
+            <div class="fogos">
+                <!-- ... fogos ... -->
+            </div>
+            
+            <h1 class="titulo-boas-vindas">Bem-vinda ao Nosso Espaço</h1>
+            
+            <p class="mensagem-boas-vindas">
+                Este lugar foi criado especialmente para você. Cada detalhe foi pensado para mostrar o quanto você é especial.
+            </p>
+            
+            <div class="elementos-interativos">
+                <div class="elemento-interativo" data-note="C">
+                    <i class="fas fa-music"></i>
+                </div>
+                <div class="elemento-interativo" data-note="D">
+                    <i class="fas fa-star"></i>
+                </div>
+                <div class="elemento-interativo" data-note="E">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <div class="elemento-interativo" data-note="F">
+                    <i class="fas fa-gem"></i>
+                </div>
+                <div class="elemento-interativo" data-note="G">
+                    <i class="fas fa-cat"></i>
+                </div>
+            </div>
+            
+            <button id="btn-iniciar" class="btn-iniciar">
+                <span>Iniciar a Experiência</span>
+                <div class="brilho-btn"></div>
+            </button>
+            
+            <div class="notas-musicais">
+                <div class="nota"></div>
+                <div class="nota"></div>
+                <div class="nota"></div>
+                <div class="nota"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Transição Especial -->
+    <div id="transicao" class="transicao-section">
+        <div class="transicao-conteudo">
+            <div class="particulas-transicao"></div>
+            <h2 class="mensagem-transicao">Preparando algo incrível...</h2>
+            <div class="loader-transicao">
+                <div class="barra"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Simples Controle de Música -->
+    <section id="player-spotify" class="player-section">
+        <div class="simple-music-control">
+            <h2>🎵 Música de Fundo</h2>
+            <p class="music-subtitle">Uma música especial para acompanhar esta experiência</p>
+            
+            <div class="music-player-simple">
+                <div class="music-cover">
+                    <div class="vinyl-record">
+                        <div class="vinyl-center"></div>
+                    </div>
+                </div>
+                
+                <div class="music-info-simple">
+                    <h3 id="current-song">Música Especial</h3>
+                    <p id="current-artist">Para você</p>
+                </div>
+                
+                <div class="simple-controls">
+                    <button id="play-music" class="music-btn play-btn">
+                        <i class="fas fa-play"></i>
+                    </button>
+                    <button id="pause-music" class="music-btn pause-btn">
+                        <i class="fas fa-pause"></i>
+                    </button>
+                    <button id="next-music" class="music-btn next-btn">
+                        <i class="fas fa-forward"></i>
+                    </button>
+                </div>
+                
+                <div class="volume-control-simple">
+                    <i class="fas fa-volume-up"></i>
+                    <input type="range" id="volume-slider" min="0" max="100" value="50">
+                </div>
+                
+                <p class="music-hint">Clique no "Play la no cantinho inferior direito para começar a música</p>
+            </div>
+            
+            <div class="decoration-music">
+                <div class="note-decoration">♪</div>
+                <div class="note-decoration">♫</div>
+                <div class="note-decoration">♩</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Carrossel de Fotos com Mensagens -->
+    <section id="carrossel-fotos" class="carrossel-section">
+        <h2 class="section-title">Nossos Momentos</h2>
+        <p class="section-subtitle">Cada foto conta uma parte da nossa história</p>
+        
+        <div class="carrossel-container">
+            <div class="carrossel-track">
+                <div class="carrossel-slide active">
+                    <div class="slide-image" id="slide-image-1"></div>
+                    <div class="slide-message">
+                        <p>Sorrisos que marcam a alma.</p>
+                    </div>
+                </div>
+                
+                <div class="carrossel-slide">
+                    <div class="slide-image" id="slide-image-2"></div>
+                    <div class="slide-message">
+                        <p>A vida é feita de pequenos momentos que se tornam grandes memórias.</p>
+                    </div>
+                </div>
+                
+                <div class="carrossel-slide">
+                    <div class="slide-image" id="slide-image-3"></div>
+                    <div class="slide-message">
+                        <p>O tempo passa, mas os bons momentos ficam para sempre.</p>
+                    </div>
+                </div>
+                
+                <div class="carrossel-slide">
+                    <div class="slide-image" id="slide-image-4"></div>
+                    <div class="slide-message">
+                        <p>A melhor parte da minha história são as páginas que escrevemos juntos.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="carrossel-btn prev-btn">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            
+            <button class="carrossel-btn next-btn">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+            
+            <div class="carrossel-dots">
+                <span class="dot active"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção de Gostos Dela -->
+    <section id="gostos" class="gostos-section">
+        <h2 class="section-title">Coisas que Ela Ama</h2>
+        <p class="section-subtitle">Um pouco do que faz seus olhos brilharem</p>
+        
+        <div class="gostos-grid">
+            <div class="gosto-card" id="gosto-1">
+                <div class="gosto-icon">
+                    <i class="fas fa-guitar"></i>
+                </div>
+                <h3>Slipknot</h3>
+                <p>A energia e intensidade que ela adora</p>
+                <div class="gosto-overlay"></div>
+            </div>
+            
+            <div class="gosto-card" id="gosto-2">
+                <div class="gosto-icon">
+                    <i class="fas fa-cat"></i>
+                </div>
+                <h3>Stella</h3>
+                <p>Ela é apaixonada por essa gata</p> 
+                <div class="gosto-overlay"></div>
+            </div>
+            
+            <div class="gosto-card" id="gosto-3">
+                <div class="gosto-icon">
+                    <i class="fas fa-music"></i>
+                </div>
+                <h3>Jazz</h3>
+                <p>O som suave que acalma sua alma</p>
+                <div class="gosto-overlay"></div>
+            </div>
+            
+            <div class="gosto-card" id="gosto-4">
+                <div class="gosto-icon">
+                    <i class="fas fa-strawberry"></i>
+                </div>
+                <h3>Morango</h3>
+                <p>Sua fruta favorita, assim como ela, é doce e vibrante</p>
+                <div class="gosto-overlay"></div>
+            </div>
+            
+            <div class="gosto-card" id="gosto-5">
+                <div class="gosto-icon">
+                    <i class="fas fa-car"></i>
+                </div>
+                <h3>Dodge Challenger</h3>
+                <p>Sua paixão em formato de carro</p>
+                <div class="gosto-overlay"></div>
+            </div>
+            
+            <div class="gosto-card" id="gosto-6">
+                <div class="gosto-icon">
+                    <i class="fas fa-palette"></i>
+                </div>
+                <h3>Vermelho</h3>
+                <p>Sua cor favorita, intensa como ela</p>
+                <div class="gosto-overlay"></div>
+            </div>
+        </div>
+
+        <!-- Caixa Especial do Joey Jordison -->
+        <div class="joey-container">
+            <div class="joey-box">
+                <div class="joey-header">
+                    <div class="joey-avatar">
+                        <i class="fas fa-drum"></i>
+                    </div>
+                    <h3>Joey Jordison</h3>
+                </div>
+                <p class="joey-message">"Veja essa mensagem especial..."</p>
+                <button id="btn-joey" class="btn-joey">
+                    <span>Abrir Mensagem</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Modal da Mensagem do Joey -->
+        <div id="joey-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Uma Mensagem Especial</h2>
+                    <button class="close-modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-image" id="joey-image"></div>
+                    <div class="modal-text">
+                        <p>Se você, como Joey, encontra na música não apenas som, mas com o próprio coração... que essa paixão seja seu abrigo e sua força. Que o espírito do Slipknot, essa tempestade de emoção que ele ajudou a criar, te lembre sempre do poder que há em ser verdadeiro. Você carrega essa centelha, e com ela, deixa sua própria marca no mundo.</p>
+                        <p class="signature">- Joey</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Estatísticas do Tempo que Se Conhecem -->
+    <section id="estatisticas" class="estatisticas-section">
+        <div class="estatisticas-container">
+            <h2 class="section-title">Nossa Jornada</h2>
+            <p class="section-subtitle">Desde o dia em que nossas histórias se cruzaram</p>
+            
+            <div class="data-input-container">
+                <div class="data-input-box">
+                    <h3>Quando nos conhecemos?</h3>
+                    <p>Insira a data em que nos conhecemos:</p>
+                    
+                    <div class="date-inputs">
+                        <input type="number" id="dia-input" placeholder="Dia" min="1" max="31" value="15">
+                        <input type="number" id="mes-input" placeholder="Mês" min="1" max="12" value="3">
+                        <input type="number" id="ano-input" placeholder="Ano" min="2000" max="2025" value="2022">
+                        <button id="salvar-data" class="btn-data">Salvar Data</button>
+                    </div>
+                    
+                    <div class="data-display" id="data-conhecimento">15 de Abril de 2025</div>
+                </div>
+            </div>
+            
+            <div class="contador-container">
+                <div class="contador-item">
+                    <div class="contador-valor" id="anos">0</div>
+                    <div class="contador-label">Anos</div>
+                </div>
+                
+                <div class="contador-item">
+                    <div class="contador-valor" id="meses">0</div>
+                    <div class="contador-label">Meses</div>
+                </div>
+                
+                <div class="contador-item">
+                    <div class="contador-valor" id="dias">0</div>
+                    <div class="contador-label">Dias</div>
+                </div>
+                
+                <div class="contador-item">
+                    <div class="contador-valor" id="horas">0</div>
+                    <div class="contador-label">Horas</div>
+                </div>
+            </div>
+            
+            <div class="mensagem-estatisticas">
+                <p>Tudo começou num dia qualquer, mas os momentos que vieram depois foram tudo, menos comuns.</p>
+            </div>
+
+            <!-- LINHA DO TEMPO PERSONALIZADA -->
+            <div class="linha-do-tempo">
+                <div class="linha"></div>
+                
+                <div class="evento">
+                    <div class="evento-dot"></div>
+                    <div class="evento-content">
+                        <h4>15 de Abril de 2025</h4>
+                        <p>Dia que a gente se conheceu 💫</p>
+                        <div class="data-detalhe">O começo de tudo</div>
+                    </div>
+                </div>
+                
+                <div class="evento">
+                    <div class="evento-dot"></div>
+                    <div class="evento-content">
+                        <h4>30 de Agosto de 2025</h4>
+                        <p>Nosso primeiro rolê juntos 🎉</p>
+                    </div>
+                </div>
+                
+                <div class="evento">
+                    <div class="evento-dot"></div>
+                    <div class="evento-content">
+                        <h4>27 de Outubro de 2025</h4>
+                        <p>Primeiro filme juntos 🎬</p>
+                    </div>
+                </div>
+                
+                <div class="evento">
+                    <div class="evento-dot evento-hoje">
+                        <div class="pulso"></div>
+                    </div>
+                    <div class="evento-content evento-hoje-content">
+                        <h4>Hoje</h4>
+                        <p>Continuamos escrevendo nossa história ✨</p>
+                        <div class="data-detalhe">Cada dia é um novo capítulo</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mensagens Bonitas com Efeitos -->
+    <section id="mensagens" class="mensagens-section">
+        <h2 class="section-title">Mensagens Para Você</h2>
+        <p class="section-subtitle">Palavras que vêm do coração</p>
+        
+        <div class="mensagens-container">
+            <div class="mensagem-card">
+                <div class="mensagem-icon">
+                    <i class="fas fa-star"></i>
+                </div>
+                <h3>Você é Única</h3>
+                <p>Eu conheci muitas pessoas, mas nunca conheci outro 'eu' como o seu.</p>
+                <div class="efeito-flutuante"></div>
+            </div>
+            
+            <div class="mensagem-card">
+                <div class="mensagem-icon">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <h3>Força Interior</h3>
+                <p>Sua força nem sempre precisa ser barulhenta. Às vezes, está na forma com que você enfrenta os desafios.</p>
+                <div class="efeito-flutuante"></div>
+            </div>
+            
+            <div class="mensagem-card">
+                <div class="mensagem-icon">
+                    <i class="fas fa-gem"></i>
+                </div>
+                <h3>Brilho Próprio</h3>
+                <p>Seu maior brilho não está no que você mostra, mas no que você é. Uma luminosidade que não se acende nem apaga, simplesmente é.</p>
+                <div class="efeito-flutuante"></div>
+            </div>
+            
+            <div class="mensagem-card">
+                <div class="mensagem-icon">
+                    <i class="fas fa-music"></i>
+                </div>
+                <h3>Sua Melodia</h3>
+                <p>A vida é cheia de altos e baixos mesmo, né? Mas o que eu admiro em você é que, por mais difícil que esteja, você sempre se levanta e segue em frente.</p>
+                <div class="efeito-flutuante"></div>
+            </div>
+            
+            <div class="mensagem-card">
+                <div class="mensagem-icon">
+                    <i class="fas fa-sun"></i>
+                </div>
+                <h3>Luz nos Dias Cinzas</h3>
+                <p>Mesmo nos dias mais difíceis, você encontra uma luz. Essa é uma das suas qualidades que eu mais admiro em você.</p>
+                <div class="efeito-flutuante"></div>
+            </div>
+            
+            <div class="mensagem-card">
+                <div class="mensagem-icon">
+                    <i class="fas fa-feather-alt"></i>
+                </div>
+                <h3>Leveza na Alma</h3>
+                <p>É bom demais estar perto de você nos dias difíceis. Você tem um jeito que acalma as coisas e deixa tudo mais leve.</p>
+                <div class="efeito-flutuante"></div>
+            </div>
+        </div>
+        
+        <div class="efeitos-container">
+            <div class="bolha"></div>
+            <div class="bolha"></div>
+            <div class="bolha"></div>
+            <div class="bolha"></div>
+            <div class="bolha"></div>
+        </div>
+    </section>
+
+    <!-- Roleta "Onde Vamos Hoje?" -->
+    <section id="roleta" class="roleta-section">
+        <div class="roleta-container">
+            <h2 class="section-title">Onde Vamos Hoje?</h2>
+            <p class="section-subtitle">Deixe a roleta decidir nossa próxima aventura</p>
+            
+            <div class="roleta-wrapper">
+                <div class="roleta" id="roleta">
+                    <div class="roleta-item" data-value="cinema">
+                        <i class="fas fa-film"></i>
+                        <span>Cinema</span>
+                    </div>
+                    <div class="roleta-item" data-value="parque">
+                        <i class="fas fa-tree"></i>
+                        <span>Parque</span>
+                    </div>
+                    <div class="roleta-item" data-value="cafe">
+                        <i class="fas fa-coffee"></i>
+                        <span>Cafeteria</span>
+                    </div>
+                    <div class="roleta-item" data-value="restaurante">
+                        <i class="fas fa-utensils"></i>
+                        <span>Restaurante</span>
+                    </div>
+                    <div class="roleta-item" data-value="barrock">
+                        <i class="fas fa-guitar"></i>
+                        <span>Bar de Rock</span>
+                    </div>
+                    <div class="roleta-item" data-value="andar">
+                        <i class="fas fa-landmark"></i>
+                        <span>Andar por aí</span>
+                    </div>
+                    <div class="roleta-item" data-value="escolha">
+                        <i class="fas fa-umbrella-beach"></i>
+                        <span>Escolha</span>
+                    </div>
+                    <div class="roleta-item" data-value="surpresa">
+                        <i class="fas fa-gift"></i>
+                        <span>Surpresa</span>
+                    </div>
+                </div>
+                <div class="roleta-centro">
+                    <div class="roleta-seta"></div>
+                </div>
+            </div>
+            
+            <div class="roleta-controls">
+                <button id="girar-roleta" class="btn-girar">
+                    <i class="fas fa-redo"></i>
+                    <span>Girar Roleta</span>
+                </button>
+                
+                <div class="resultado-roleta" id="resultado-roleta">
+                    <p>Clique para girar e descobrir!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final Surpreendente -->
+    <section id="final" class="final-section">
+        <div class="final-container">
+            <!-- Efeitos especiais de coração -->
+            <div class="coracoes-especiais">
+                <div class="coracao-final"></div>
+                <div class="coracao-final"></div>
+                <div class="coracao-final"></div>
+                <div class="coracao-final"></div>
+                <div class="coracao-final"></div>
+            </div>
+            
+            <div class="final-conteudo">
+                <h1 class="final-titulo">Para Uma Pessoa Incrivel</h1>
+                
+                <div class="final-mensagem">
+                    <p>Este site foi criado com um único propósito: lembrar você do quanto é especial.</p>
+                    <p>Cada seção, cada efeito, cada detalhe foi pensado para trazer um sorriso no seu rosto.</p>
+                    <p>Nos dias em que a tristeza tentar se aproximar, lembre-se de todas as coisas incríveis que você é e de todas as pessoas que se importam com você.</p>
+                    <p class="destaque">Você nunca está sozinha.</p>
+                </div>
+                
+                <div class="final-interativo">
+                    <div class="flores-finais">
+                        <div class="flor-final"></div>
+                        <div class="flor-final"></div>
+                        <div class="flor-final"></div>
+                        <div class="flor-final"></div>
+                        <div class="flor-final"></div>
+                    </div>
+                    
+                    <button id="btn-final" class="btn-final">
+                        <span>Clique para uma surpresa final</span>
+                    </button>
+                </div>
+                
+                <div class="final-assinatura">
+                    <p>Feito com <i class="fas fa-heart"></i> por alguém que se importa muito com você</p>
+                </div>
+            </div>
+            
+            <div class="efeitos-finais">
+                <div class="confete"></div>
+                <div class="confete"></div>
+                <div class="confete"></div>
+                <div class="confete"></div>
+                <div class="confete"></div>
+                <div class="confete"></div>
+                <div class="confete"></div>
+                <div class="confete"></div>
+            </div>
+        </div>
+    </section>
+
+        <!-- MÚSICA DE FUNDO - VERSÃO SIMPLES E FUNCIONAL -->
+    <audio id="musicaFundo" loop style="display: none;">
+        <source src="musicas/musica1.mp3" type="audio/mpeg">
+    </audio>
+
+<!-- BOTÃO SIMPLES PARA MÚSICA -->
+<div class="controle-musica-simples">
+    <button id="btnMusica">
+        <i class="fas fa-play"></i>
+    </button>
+</div>
+
+    <!-- Elementos decorativos flutuantes -->
+    <div class="coracoes-flutuantes"></div>
+    
+    <!-- Efeitos de Partículas em Tela Cheia -->
+    <div id="particles-js"></div>
+    
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
