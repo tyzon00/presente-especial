@@ -62,9 +62,9 @@ document.addEventListener('DOMContentLoaded', function() {
 // Configuração de imagens (SUBSTITUA COM SUAS IMAGENS)
 const CONFIG_IMAGENS = {
     momentos: [
-        "imagens/momento1.jpg",
-        "imagens/momento2.jpg", 
         "imagens/momento3.jpg",
+        "imagens/momento2.jpg", 
+        "imagens/momento1.jpg",
         "imagens/momento4.jpg"
     ],
     gostos: [
@@ -1690,5 +1690,6 @@ style.textContent = `
     }
 `;
 document.head.appendChild(style);
+
 
 
