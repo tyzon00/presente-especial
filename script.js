@@ -75,7 +75,7 @@ const CONFIG_IMAGENS = {
         "https://i.pinimg.com/736x/af/40/08/af4008b714477e737c9f35d613e7ac17.jpg",
         "https://i.pinimg.com/736x/e9/39/ba/e939ba2d9e812b3dfc93bb987f14ac6c.jpg"
     ],
-    joey: "https://pin.it/6XsyMzzPy"
+    joey: "https://i.pinimg.com/736x/15/c9/2e/15c92eeab9b528f75200490aab8b9dfa.jpg"
 };
 
 // Estado global da aplicação
@@ -1690,4 +1690,5 @@ style.textContent = `
     }
 `;
 document.head.appendChild(style);
+
 
