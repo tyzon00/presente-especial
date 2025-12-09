@@ -2228,3 +2228,549 @@ body.no-scroll {
 .controle-musica-simples {
     z-index: 10000 !important;
 }
+
+/* ==========================================
+   CORREÇÃO COMPLETA DE TRANSIÇÕES
+   ========================================== */
+
+/* Reset para garantir que tudo comece escondido */
+body * {
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+/* Container principal que controla tudo */
+.experience-container {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+/* Todas as seções começam escondidas */
+section:not(#surpresa) {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    z-index: 1 !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+    transform: translateY(20px) !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+}
+
+/* Seção ativa */
+section.active {
+    position: fixed !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: all !important;
+    transform: translateY(0) !important;
+    z-index: 10 !important;
+    display: flex !important;
+}
+
+/* Seção de surpresa (inicial) */
+#surpresa {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    z-index: 1000 !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+/* Tela de transição - sobreposição */
+#transicao {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    z-index: 9999 !important;
+    display: flex !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    background: linear-gradient(135deg, #6a11cb, #2575fc) !important;
+    transition: opacity 0.5s ease, visibility 0.5s ease !important;
+}
+
+#transicao.show {
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+/* Overlay para bloquear interações durante transição */
+.transition-overlay {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    background: transparent !important;
+    z-index: 9998 !important;
+    pointer-events: none !important;
+}
+
+.transition-overlay.active {
+    pointer-events: all !important;
+}
+
+/* Garantir que o body não tenha scroll desnecessário */
+body {
+    overflow: hidden !important;
+    width: 100% !important;
+    height: 100% !important;
+    position: fixed !important;
+}
+
+body.scroll-enabled {
+    overflow: auto !important;
+    position: static !important;
+    height: auto !important;
+}
+
+/* Container específico para cada seção */
+.section-content {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    position: relative;
+    z-index: 2;
+}
+
+/* Garantir que elementos internos não vazem */
+.carrossel-container,
+.gostos-grid,
+.mensagens-container,
+.roleta-wrapper,
+.estatisticas-container {
+    max-height: 85vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-right: 10px;
+}
+
+/* Personalizar scrollbar */
+.carrossel-container::-webkit-scrollbar,
+.gostos-grid::-webkit-scrollbar,
+.mensagens-container::-webkit-scrollbar,
+.roleta-wrapper::-webkit-scrollbar,
+.estatisticas-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.carrossel-container::-webkit-scrollbar-track,
+.gostos-grid::-webkit-scrollbar-track,
+.mensagens-container::-webkit-scrollbar-track,
+.roleta-wrapper::-webkit-scrollbar-track,
+.estatisticas-container::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+}
+
+.carrossel-container::-webkit-scrollbar-thumb,
+.gostos-grid::-webkit-scrollbar-thumb,
+.mensagens-container::-webkit-scrollbar-thumb,
+.roleta-wrapper::-webkit-scrollbar-thumb,
+.estatisticas-container::-webkit-scrollbar-thumb {
+    background: rgba(255, 107, 107, 0.5);
+    border-radius: 10px;
+}
+
+/* Botão de música fixo */
+.controle-musica-simples {
+    position: fixed !important;
+    bottom: 20px !important;
+    right: 20px !important;
+    z-index: 10000 !important;
+}
+
+/* Garantir que partículas fiquem no fundo */
+#particles-js {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    z-index: 0 !important;
+    pointer-events: none !important;
+    opacity: 0.5 !important;
+}
+
+/* Corações flutuantes */
+.coracoes-flutuantes {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    z-index: 1 !important;
+    pointer-events: none !important;
+}
+
+/* Para telas muito pequenas */
+@media (max-width: 768px) {
+    .section-content {
+        padding: 15px;
+    }
+    
+    .carrossel-container,
+    .gostos-grid,
+    .mensagens-container,
+    .roleta-wrapper,
+    .estatisticas-container {
+        max-height: 80vh;
+    }
+}
+
+/* Animação de entrada para cada seção */
+@keyframes sectionEnter {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+section.active {
+    animation: sectionEnter 0.8s ease forwards;
+}
+
+/* Desativar animações em preferências reduzidas */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* ==========================================
+   CORREÇÕES ESPECÍFICAS PARA CELULAR
+   ========================================== */
+
+@media (max-width: 768px) {
+    /* CORREÇÃO FUNDAMENTAL: Garantir que tudo fique dentro da tela */
+    html, body {
+        width: 100% !important;
+        height: 100% !important;
+        overflow: hidden !important;
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        -webkit-overflow-scrolling: touch !important;
+    }
+    
+    /* Container principal que segura tudo */
+    body {
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+    }
+    
+    /* CORREÇÃO CRÍTICA: Seções no celular */
+    section:not(#surpresa) {
+        position: absolute !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100vw !important;
+        height: 100vh !important;
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+        display: none !important;
+        opacity: 0 !important;
+        transform: translateX(100%) !important;
+        transition: transform 0.5s ease, opacity 0.5s ease !important;
+        z-index: 10 !important;
+        background: inherit !important;
+    }
+    
+    /* Seção ativa no celular */
+    section.active {
+        display: flex !important;
+        opacity: 1 !important;
+        transform: translateX(0) !important;
+        position: fixed !important;
+        z-index: 100 !important;
+    }
+    
+    /* Seção anterior (para animação) */
+    section.previous {
+        transform: translateX(-100%) !important;
+    }
+    
+    /* Tela de surpresa - sempre no topo */
+    #surpresa {
+        position: fixed !important;
+        z-index: 1000 !important;
+    }
+    
+    /* Transição - tela cheia */
+    #transicao {
+        position: fixed !important;
+        z-index: 9999 !important;
+    }
+    
+    /* CORREÇÃO: Container interno de cada seção */
+    .section-content {
+        width: 100% !important;
+        height: 100% !important;
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+        padding: 20px 15px !important;
+        margin: 0 !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        align-items: center !important;
+    }
+    
+    /* Ajuste de altura para conteúdo longo */
+    .carrossel-container,
+    .gostos-grid,
+    .mensagens-container,
+    .estatisticas-container {
+        max-height: 70vh !important;
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+    }
+    
+    /* Títulos menores no celular */
+    .section-title {
+        font-size: 2rem !important;
+        margin-bottom: 15px !important;
+    }
+    
+    .section-subtitle {
+        font-size: 1rem !important;
+        margin-bottom: 30px !important;
+    }
+    
+    /* Botões maiores para touch */
+    .btn-iniciar,
+    .btn-girar,
+    .btn-final,
+    .btn-joey {
+        padding: 18px 30px !important;
+        font-size: 1.1rem !important;
+        min-height: 60px !important;
+        min-width: 200px !important;
+    }
+    
+    /* Carrossel ajustado */
+    .slide-image {
+        height: 300px !important;
+        background-size: contain !important;
+        background-position: center !important;
+        background-repeat: no-repeat !important;
+        background-color: #000 !important;
+    }
+    
+    /* Grid de gostos - uma coluna */
+    .gostos-grid {
+        grid-template-columns: 1fr !important;
+        gap: 20px !important;
+        padding: 10px !important;
+    }
+    
+    .gosto-card {
+        min-height: 200px !important;
+        padding: 20px !important;
+    }
+    
+    /* Mensagens - uma coluna */
+    .mensagens-container {
+        grid-template-columns: 1fr !important;
+        gap: 20px !important;
+    }
+    
+    /* Roleta menor */
+    .roleta-wrapper {
+        height: 300px !important;
+    }
+    
+    .roleta-item {
+        font-size: 0.9rem !important;
+    }
+    
+    .roleta-item i {
+        font-size: 1.5rem !important;
+    }
+    
+    /* Contador de tempo */
+    .contador-container {
+        flex-wrap: wrap !important;
+        gap: 15px !important;
+    }
+    
+    .contador-item {
+        min-width: 100px !important;
+        padding: 15px 10px !important;
+    }
+    
+    .contador-valor {
+        font-size: 2.5rem !important;
+    }
+    
+    /* Player de música ajustado */
+    .music-player-simple {
+        padding: 20px !important;
+    }
+    
+    .music-cover {
+        width: 120px !important;
+        height: 120px !important;
+    }
+    
+    .simple-controls {
+        gap: 15px !important;
+    }
+    
+    .music-btn {
+        width: 50px !important;
+        height: 50px !important;
+        font-size: 1.2rem !important;
+    }
+    
+    /* Botão de música fixo ajustado */
+    .controle-musica-simples {
+        bottom: 70px !important;
+        right: 15px !important;
+    }
+    
+    .controle-musica-simples button {
+        width: 60px !important;
+        height: 60px !important;
+        font-size: 1.8rem !important;
+    }
+    
+    /* Linha do tempo simplificada */
+    .linha-do-tempo {
+        padding: 20px 0 !important;
+    }
+    
+    .evento {
+        width: 100% !important;
+        margin-left: 0 !important;
+        padding-left: 40px !important;
+        text-align: left !important;
+        margin-bottom: 30px !important;
+    }
+    
+    .linha {
+        left: 15px !important;
+    }
+    
+    .evento:nth-child(odd) .evento-dot {
+        left: -8px !important;
+        right: auto !important;
+    }
+    
+    /* Modal ajustado para celular */
+    .modal-content {
+        width: 95% !important;
+        max-height: 80vh !important;
+        overflow-y: auto !important;
+    }
+    
+    .modal-body {
+        flex-direction: column !important;
+    }
+    
+    .modal-image {
+        height: 200px !important;
+    }
+    
+    /* Esconde alguns efeitos pesados no celular */
+    .estrelas,
+    .fogos,
+    .notas-musicais {
+        display: none !important;
+    }
+    
+    /* Ajuste de fontes */
+    .titulo-surpresa {
+        font-size: 2.8rem !important;
+    }
+    
+    .titulo-boas-vindas {
+        font-size: 2.2rem !important;
+    }
+    
+    .final-titulo {
+        font-size: 2rem !important;
+    }
+}
+
+/* Para telas muito pequenas */
+@media (max-width: 480px) {
+    .section-title {
+        font-size: 1.6rem !important;
+    }
+    
+    .slide-image {
+        height: 250px !important;
+    }
+    
+    .roleta-wrapper {
+        height: 250px !important;
+    }
+    
+    .btn-iniciar,
+    .btn-girar,
+    .btn-final {
+        padding: 16px 25px !important;
+        font-size: 1rem !important;
+        min-width: 180px !important;
+    }
+    
+    .music-cover {
+        width: 100px !important;
+        height: 100px !important;
+    }
+    
+    .contador-item {
+        min-width: 80px !important;
+    }
+    
+    .contador-valor {
+        font-size: 2rem !important;
+    }
+}
+
+/* CORREÇÃO PARA iOS Safari */
+@supports (-webkit-touch-callout: none) {
+    section {
+        min-height: -webkit-fill-available !important;
+    }
+    
+    .carrossel-container,
+    .gostos-grid,
+    .mensagens-container {
+        max-height: 65vh !important;
+    }
+}
+
+/* Prevenir zoom em inputs no iOS */
+@media screen and (max-width: 768px) {
+    input, select, textarea {
+        font-size: 16px !important;
+    }
+}
+
+/* Garantir que tudo fique dentro da viewport */
+* {
+    max-width: 100vw;
+    box-sizing: border-box;
+}
