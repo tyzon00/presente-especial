@@ -2,7 +2,6 @@
    CORREÇÃO DE BUGS PARA CELULAR
    ==================================== */
 
-// Força carregamento correto no celular
 function corrigirCelular() {
     console.log("📱 Aplicando correções para celular...");
     
@@ -12,26 +11,17 @@ function corrigirCelular() {
     if (isMobile) {
         console.log("📱 Dispositivo móvel detectado");
         
-        // Correções CSS imediatas
+        // Correções CSS imediatas (APENAS ESSAS)
         document.body.style.overflowX = 'hidden';
         document.body.style.width = '100%';
         
-        // Garante que a tela de boas-vindas aparece
-        const boasVindas = document.getElementById('boas-vindas');
-        if (boasVindas) {
-            boasVindas.style.display = 'flex';
-            boasVindas.style.visibility = 'visible';
-            boasVindas.style.opacity = '1';
-        }
+        // NÃO mexa na tela de boas-vindas! Ela já é controlada por outras funções
+        // NÃO adicione display, visibility ou opacity aqui
         
-        // Garante que o botão aparece
+        // APENAS garante que o botão TEM a classe CSS correta
         const btnIniciar = document.getElementById('btn-iniciar');
         if (btnIniciar) {
-            btnIniciar.style.display = 'flex';
-            btnIniciar.style.visibility = 'visible';
-            btnIniciar.style.opacity = '1';
-            btnIniciar.style.position = 'relative';
-            btnIniciar.style.zIndex = '100';
+            btnIniciar.classList.add('btn-iniciar-visible');
         }
     }
 }
