@@ -1,24 +1,81 @@
 /* ===========================================================================
+   PREVENIR PROBLEMAS DE ORIENTAÇÃO
+   =========================================================================== */
+
+// Detectar e prevenir problemas de orientação
+function prevenirProblemasOrientacao() {
+    console.log('📱 Verificando orientação do dispositivo...');
+    
+    // Verificar se estamos em mobile
+    const isMobile = /iPhone|iPad|iPod|Android|webOS|BlackBerry|Windows Phone/i.test(navigator.userAgent);
+    
+    if (isMobile) {
+        // Prevenir comportamentos padrão que podem causar rotação
+        document.addEventListener('touchmove', function(e) {
+            // Prevenir zoom com dois dedos
+            if (e.touches.length > 1) {
+                e.preventDefault();
+            }
+        }, { passive: false });
+        
+        // Prevenir rotação via JavaScript (remova qualquer lock de orientação)
+        if (screen.orientation && screen.orientation.lock) {
+            // NÃO travar a orientação - deixe o usuário controlar
+            // screen.orientation.lock('portrait').catch(() => {});
+        }
+        
+        // Forçar redimensionamento correto
+        window.addEventListener('resize', function() {
+            setTimeout(() => {
+                // Apenas ajustar visualmente, não forçar rotação
+                document.documentElement.style.width = '100%';
+                document.body.style.width = '100%';
+            }, 100);
+        });
+    }
+}
+
+// Executar ao carregar
+document.addEventListener('DOMContentLoaded', function() {
+    prevenirProblemasOrientacao();
+    
+    // Adicionar classe para identificar orientação
+    function atualizarOrientacao() {
+        if (window.innerHeight > window.innerWidth) {
+            document.body.classList.add('portrait');
+            document.body.classList.remove('landscape');
+        } else {
+            document.body.classList.add('landscape');
+            document.body.classList.remove('portrait');
+        }
+    }
+    
+    window.addEventListener('resize', atualizarOrientacao);
+    window.addEventListener('orientationchange', atualizarOrientacao);
+    atualizarOrientacao();
+});
+
+/* ===========================================================================
    CONFIGURAÇÕES E VARIÁVEIS GLOBAIS
    =========================================================================== */
 
 // Configuração de imagens (SUBSTITUA COM SUAS IMAGENS)
 const CONFIG_IMAGENS = {
     momentos: [
-        "https://media.discordapp.net/attachments/1306702378971566112/1447851153059741698/IMG_2322.jpg",
-        "https://media.discordapp.net/attachments/1306702378971566112/1447851154053664860/2B994FDC-64EE-4BEE-A972-B35BE4039900.jpg",
-        "https://media.discordapp.net/attachments/1306702378971566112/1447851154976407622/IMG_1941.jpg",
-        "https://media.discordapp.net/attachments/1306702378971566112/1447851340587073578/image.jpg"
+        "imagens/momento1.jpg",
+        "imagens/momento2.jpg", 
+        "imagens/momento3.jpg",
+        "imagens/momento4.jpg"
     ],
     gostos: [
         "https://i.pinimg.com/1200x/c0/09/e3/c009e3432f53b1e0ff06de3c7b99f6fd.jpg",
-        "https://media.discordapp.net/attachments/1306702378971566112/1447849089239875725/IMG_2459.png",
+        "imagens/gosto2.jpg",
         "https://i.pinimg.com/736x/de/74/f1/de74f121fa90f0d8cd6b47d59c5c8590.jpg",
         "https://i.pinimg.com/1200x/5d/78/85/5d788520ba606cecc27f7a1a70c153e9.jpg",
         "https://i.pinimg.com/736x/af/40/08/af4008b714477e737c9f35d613e7ac17.jpg",
         "https://i.pinimg.com/736x/e9/39/ba/e939ba2d9e812b3dfc93bb987f14ac6c.jpg"
     ],
-    joey: "https://images.unsplash.com/photo-1511735111819-9a3f7709049c?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+    joey: "https://pin.it/6XsyMzzPy"
 };
 
 // Estado global da aplicação
@@ -1346,13 +1403,6 @@ function adicionarEventListeners() {
         }
     }, { passive: false });
     
-    // Lidar com mudança de orientação
-    window.addEventListener('orientationchange', function() {
-        setTimeout(() => {
-            location.reload();
-        }, 100);
-    });
-    
     // Pausar música quando a página não está visível
     document.addEventListener('visibilitychange', function() {
         if (document.hidden && APP_STATE.isMusicPlaying && DOM.media.musicaFundo) {
@@ -1456,6 +1506,162 @@ window.pularParaSecao = function(nomeSecao) {
         mostrarSecao(nomeSecao);
     }
 };
+
+/* ===========================================================================
+   SOLUÇÃO PARA PROBLEMAS DE SCROLL E CARROSSEL
+   =========================================================================== */
+
+function corrigirScrollMobile() {
+    if (!APP_STATE.isMobile) return;
+    
+    console.log('🔧 Corrigindo problemas de scroll no mobile...');
+    
+    // Remover classe que impede o scroll
+    document.body.classList.remove('start-at-top');
+    
+    // Habilitar scroll em todas as seções
+    document.querySelectorAll('section').forEach(section => {
+        section.style.overflowY = 'auto';
+        section.style.webkitOverflowScrolling = 'touch';
+        section.style.height = '100vh';
+    });
+    
+    // Corrigir altura do viewport
+    function ajustarAlturaViewport() {
+        let vh = window.innerHeight * 0.01;
+        document.documentElement.style.setProperty('--vh', `${vh}px`);
+    }
+    
+    ajustarAlturaViewport();
+    window.addEventListener('resize', ajustarAlturaViewport);
+    window.addEventListener('orientationchange', ajustarAlturaViewport);
+    
+    // Adicionar padding-bottom para iPhone
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+    if (isIOS) {
+        document.body.style.paddingBottom = 'env(safe-area-inset-bottom)';
+    }
+}
+
+function melhorarCarrosselMobile() {
+    if (!APP_STATE.isMobile) return;
+    
+    console.log('📱 Otimizando carrossel para mobile...');
+    
+    const carrossel = document.querySelector('.carrossel-container');
+    if (!carrossel) return;
+    
+    // Função para detectar orientação e ajustar proporções
+    function ajustarProporcaoPorOrientacao() {
+        const isPortrait = window.innerHeight > window.innerWidth;
+        
+        if (isPortrait) {
+            // Modo retrato: proporção 9:16
+            carrossel.style.aspectRatio = '9/16';
+            carrossel.style.maxHeight = '85vh';
+        } else {
+            // Modo paisagem: proporção mais ampla
+            carrossel.style.aspectRatio = '16/9';
+            carrossel.style.maxHeight = '90vh';
+        }
+    }
+    
+    // Ajustar inicialmente
+    ajustarProporcaoPorOrientacao();
+    
+    // Ajustar quando a orientação mudar
+    window.addEventListener('resize', ajustarProporcaoPorOrientacao);
+    window.addEventListener('orientationchange', function() {
+        setTimeout(ajustarProporcaoPorOrientacao, 100);
+    });
+    
+    // Sistema inteligente para imagens do carrossel
+    function otimizarImagensCarrossel() {
+        const slides = document.querySelectorAll('.slide-image');
+        slides.forEach((slide, index) => {
+            // Verificar se a imagem está carregada
+            const imgUrl = slide.style.backgroundImage.replace(/url\(['"]?(.*?)['"]?\)/i, '$1');
+            if (!imgUrl) return;
+            
+            // Criar elemento imagem para detectar proporção
+            const img = new Image();
+            img.onload = function() {
+                const ratio = this.width / this.height;
+                
+                // Ajustar background-size baseado na proporção
+                if (ratio > 1) {
+                    // Imagem paisagem
+                    slide.style.backgroundSize = 'cover';
+                } else {
+                    // Imagem retrato
+                    slide.style.backgroundSize = 'contain';
+                    slide.style.backgroundColor = '#000';
+                }
+                
+                console.log(`🖼️ Slide ${index + 1}: ${ratio > 1 ? 'Paisagem' : 'Retrato'} (${this.width}x${this.height})`);
+            };
+            img.src = imgUrl;
+        });
+    }
+    
+    // Aguardar carregamento das imagens
+    setTimeout(otimizarImagensCarrossel, 1000);
+}
+
+// Inicializar correções quando o DOM estiver carregado
+document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(() => {
+        corrigirScrollMobile();
+        melhorarCarrosselMobile();
+    }, 500);
+    
+    // Reaplicar correções quando mudar de seção
+    const observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+            if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+                if (mutation.target.classList.contains('active')) {
+                    setTimeout(() => {
+                        melhorarCarrosselMobile();
+                    }, 300);
+                }
+            }
+        });
+    });
+    
+    // Observar mudanças nas seções
+    document.querySelectorAll('section').forEach(section => {
+        observer.observe(section, { attributes: true });
+    });
+});
+
+// Função para forçar redimensionamento em iOS
+function corrigirViewportIOS() {
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+    if (!isIOS) return;
+    
+    console.log('🍎 Aplicando correções específicas para iOS...');
+    
+    // Prevenir comportamento padrão de zoom
+    document.addEventListener('gesturestart', function(e) {
+        e.preventDefault();
+    });
+    
+    // Corrigir altura da viewport
+    function setHeight() {
+        const vh = window.innerHeight * 0.01;
+        document.documentElement.style.setProperty('--vh', `${vh}px`);
+        document.body.style.height = 'calc(var(--vh, 1vh) * 100)';
+    }
+    
+    setHeight();
+    window.addEventListener('resize', setHeight);
+    window.addEventListener('orientationchange', function() {
+        setTimeout(setHeight, 100);
+    });
+}
+
+// Executar correções iOS
+corrigirViewportIOS();
 
 /* ===========================================================================
    ANIMAÇÕES CSS DINÂMICAS
