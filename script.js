@@ -1,116 +1,46 @@
 // ==============================================
-// SISTEMA DE MÚSICA PARA CELULAR E COMPUTADOR
+// MÚSICA DE FUNDO - VERSÃO CORRIGIDA E SIMPLES
 // ==============================================
 
-let musicaMobile;
-let musicaIniciada = false;
-
+// Aguarda o carregamento completo do DOM
 document.addEventListener('DOMContentLoaded', function() {
-    // Detectar se é celular
-    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-    
-    if (isMobile) {
-        console.log("📱 Modo celular detectado");
-        mostrarBotaoMusicaMobile();
-    } else {
-        console.log("💻 Modo computador detectado");
-        configurarMusicaComputador();
-    }
-});
-
-// Função para computador (funciona normal)
-function configurarMusicaComputador() {
+    // Configura a música
     const musica = document.getElementById('musicaFundo');
     const btnMusica = document.getElementById('btnMusica');
     
-    if (musica && btnMusica) {
+    if (musica) {
+        // Configurações iniciais
         musica.volume = 0.3;
         musica.loop = true;
         
-        btnMusica.addEventListener('click', function(e) {
-            e.stopPropagation();
-            
-            if (musica.paused) {
-                musica.play()
-                    .then(() => {
-                        console.log('🎵 Música iniciada (computador)');
-                        this.innerHTML = '<i class="fas fa-volume-up"></i>';
-                    })
-                    .catch(err => {
-                        console.log('❌ Erro no computador:', err);
-                    });
-            } else {
-                musica.pause();
-                this.innerHTML = '<i class="fas fa-volume-mute"></i>';
-            }
-        });
-    }
-}
-
-// Função para celular (sistema especial)
-function mostrarBotaoMusicaMobile() {
-    const mobileBtn = document.getElementById('mobileMusicBtn');
-    if (mobileBtn) {
-        mobileBtn.style.display = 'block';
-    }
-    
-    // Inicializa a música do celular
-    musicaMobile = document.getElementById('musicaMobile');
-    if (musicaMobile) {
-        musicaMobile.volume = 0.3;
-        musicaMobile.loop = true;
-    }
-}
-
-// Função que o usuário precisa chamar NO CELULAR
-function iniciarMusicaMobile() {
-    if (!musicaIniciada && musicaMobile) {
-        musicaMobile.play()
-            .then(() => {
-                console.log('✅ Música iniciada no celular!');
-                musicaIniciada = true;
+        console.log("🎵 Música configurada (volume: 0.3, loop: ativo)");
+        
+        // SOMENTE inicia a música quando o usuário clicar no botão específico
+        if (btnMusica) {
+            btnMusica.addEventListener('click', function(e) {
+                e.stopPropagation();
                 
-                // Atualiza o botão
-                const btn = document.querySelector('#mobileMusicBtn button');
-                if (btn) {
-                    btn.innerHTML = '<i class="fas fa-volume-up"></i>';
-                    btn.style.background = 'linear-gradient(45deg, #1DB954, #1ed760)';
-                    btn.onclick = function() {
-                        if (musicaMobile.paused) {
-                            musicaMobile.play();
+                if (musica.paused) {
+                    musica.play()
+                        .then(() => {
+                            console.log('🎵 Música iniciada pelo botão!');
                             this.innerHTML = '<i class="fas fa-volume-up"></i>';
-                        } else {
-                            musicaMobile.pause();
-                            this.innerHTML = '<i class="fas fa-play"></i>';
-                        }
-                    };
+                            this.style.background = 'rgba(255, 107, 149, 0.9)';
+                        })
+                        .catch(err => {
+                            console.log('❌ Erro ao iniciar música:', err);
+                        });
+                } else {
+                    musica.pause();
+                    this.innerHTML = '<i class="fas fa-volume-mute"></i>';
+                    this.style.background = 'rgba(100, 100, 100, 0.7)';
                 }
-                
-                // Esconde a mensagem de ajuda
-                const ajuda = document.getElementById('ajudaMusica');
-                if (ajuda) ajuda.style.display = 'none';
-            })
-            .catch(err => {
-                console.log('❌ Erro no celular:', err);
-                alert('Para a música funcionar, toque na tela primeiro e depois clique no botão de play novamente.');
             });
+        }
+    } else {
+        console.log("❌ Elemento de música não encontrado");
     }
-}
-
-// Tenta iniciar música automaticamente em qualquer interação (para alguns celulares)
-document.addEventListener('touchstart', function iniciarNoToque() {
-    if (!musicaIniciada && musicaMobile) {
-        musicaMobile.play()
-            .then(() => {
-                console.log('🎵 Música iniciada por toque');
-                musicaIniciada = true;
-                document.removeEventListener('touchstart', iniciarNoToque);
-            })
-            .catch(() => {
-                // Ignora erro, o usuário precisa clicar no botão
-            });
-    }
-}, { once: true });
+});
 
 /* ==================== VARIÁVEIS GLOBAIS E CONFIGURAÇÕES ==================== */
 
