@@ -1,3 +1,65 @@
+/* ====================================
+   CORREÇÃO DE BUGS PARA CELULAR
+   ==================================== */
+
+// Força carregamento correto no celular
+function corrigirCelular() {
+    console.log("📱 Aplicando correções para celular...");
+    
+    // Detecta se é celular
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    
+    if (isMobile) {
+        console.log("📱 Dispositivo móvel detectado");
+        
+        // Correções CSS imediatas
+        document.body.style.overflowX = 'hidden';
+        document.body.style.width = '100%';
+        
+        // Garante que a tela de boas-vindas aparece
+        const boasVindas = document.getElementById('boas-vindas');
+        if (boasVindas) {
+            boasVindas.style.display = 'flex';
+            boasVindas.style.visibility = 'visible';
+            boasVindas.style.opacity = '1';
+        }
+        
+        // Garante que o botão aparece
+        const btnIniciar = document.getElementById('btn-iniciar');
+        if (btnIniciar) {
+            btnIniciar.style.display = 'flex';
+            btnIniciar.style.visibility = 'visible';
+            btnIniciar.style.opacity = '1';
+            btnIniciar.style.position = 'relative';
+            btnIniciar.style.zIndex = '100';
+        }
+    }
+}
+
+// Executa quando a página carrega
+document.addEventListener('DOMContentLoaded', function() {
+    // Chama a correção para celular
+    corrigirCelular();
+    
+    // Força a página para começar no topo
+    window.scrollTo(0, 0);
+    document.body.classList.add('start-at-top');
+    
+    // Remove classe quando a experiência começar
+    document.getElementById('btn-iniciar')?.addEventListener('click', function() {
+        document.body.classList.remove('start-at-top');
+        console.log("🚀 Botão 'Iniciar Experiência' clicado!");
+    });
+    
+    // Resto do seu código de inicialização...
+    inicializarParticlesJS();
+    carregarImagens();
+    iniciarContagemRegressiva();
+    inicializarCoracoesFlutuantes();
+    
+    console.log("🎁 Site carregado com correções para celular!");
+});
+
 // ==============================================
 // MÚSICA DE FUNDO - VERSÃO CORRIGIDA E SIMPLES
 // ==============================================
@@ -238,51 +300,85 @@ function iniciarTransicao() {
     }, 500);
 }
 
-/* ==================== TELA DE BOAS-VINDAS ==================== */
-
 function iniciarEfeitosBoasVindas() {
     console.log("🎉 Iniciando efeitos de boas-vindas...");
     
-    // Efeito nos elementos interativos
-    const elementosInterativos = document.querySelectorAll('.elemento-interativo');
-    elementosInterativos.forEach(elemento => {
-        elemento.addEventListener('click', function() {
-            this.style.transform = 'scale(0.9)';
-            setTimeout(() => {
-                this.style.transform = 'scale(1)';
-            }, 200);
-            
-            const nota = this.getAttribute('data-note');
-            tocarNota(nota);
-        });
-    });
-    
-    // Botão de iniciar
+    // VERIFICA se o botão existe
     const btnIniciar = document.getElementById('btn-iniciar');
+    
+    if (!btnIniciar) {
+        console.error("❌ BOTÃO 'btn-iniciar' NÃO ENCONTRADO!");
+        // Cria o botão se não existir (fallback)
+        criarBotaoFallback();
+        return;
+    }
+    
+    console.log("✅ Botão encontrado, configurando...");
+    
+    // Configura o botão
     btnIniciar.addEventListener('click', function() {
         console.log("🚀 Iniciando experiência...");
+        
+        // Efeito visual
         this.style.transform = 'scale(0.95)';
+        
+        // Log para debug
+        console.log("📱 Dispositivo:", navigator.userAgent);
+        console.log("🖥️ Largura da tela:", window.innerWidth);
         
         setTimeout(() => {
             iniciarTransicao();
         }, 300);
     });
+    
+    // Efeitos nos elementos interativos (se existirem)
+    const elementosInterativos = document.querySelectorAll('.elemento-interativo');
+    if (elementosInterativos.length > 0) {
+        elementosInterativos.forEach(elemento => {
+            elemento.addEventListener('click', function() {
+                this.style.transform = 'scale(0.9)';
+                setTimeout(() => {
+                    this.style.transform = 'scale(1)';
+                }, 200);
+                
+                const nota = this.getAttribute('data-note');
+                tocarNota(nota);
+            });
+        });
+    }
 }
 
-function tocarNota(nota) {
-    console.log(`🎵 Tocando nota: ${nota}`);
+// Fallback caso o botão não exista
+function criarBotaoFallback() {
+    console.log("⚠️ Criando botão fallback...");
     
-    const notasMusicais = document.querySelector('.notas-musicais');
-    const novaNota = document.createElement('div');
-    novaNota.className = 'nota';
-    novaNota.innerHTML = '<i class="fas fa-music"></i>';
-    novaNota.style.left = `${Math.random() * 100}%`;
-    novaNota.style.top = `${Math.random() * 100}%`;
-    notasMusicais.appendChild(novaNota);
+    const container = document.querySelector('.boas-vindas-container');
+    if (!container) return;
     
-    setTimeout(() => {
-        novaNota.remove();
-    }, 4000);
+    const botaoFallback = document.createElement('button');
+    botaoFallback.id = 'btn-iniciar-fallback';
+    botaoFallback.innerHTML = '<span>Iniciar a Experiência</span>';
+    botaoFallback.className = 'btn-iniciar';
+    botaoFallback.style.cssText = `
+        background: linear-gradient(45deg, #6a11cb, #2575fc);
+        border: none;
+        color: white;
+        font-size: 1.3rem;
+        padding: 18px 45px;
+        border-radius: 50px;
+        cursor: pointer;
+        margin-top: 30px;
+        font-weight: 600;
+        display: block !important;
+        visibility: visible !important;
+    `;
+    
+    botaoFallback.addEventListener('click', function() {
+        console.log("🚀 Fallback: Iniciando experiência...");
+        iniciarTransicao();
+    });
+    
+    container.appendChild(botaoFallback);
 }
 
 function criarParticulasTransicao() {
