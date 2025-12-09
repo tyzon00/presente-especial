@@ -2,14 +2,14 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Um Presente Especial Para Você</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>❤️</text></svg>">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💝</text></svg>">
 </head>
-<body>
+<body class="start-at-top">
     <!-- Tela de Surpresa Inicial -->
     <section id="surpresa" class="surpresa-section active">
         <div class="surpresa-container">
@@ -44,13 +44,7 @@
     <!-- Tela de Boas-Vindas -->
     <section id="boas-vindas" class="boas-vindas-section">
         <div class="boas-vindas-container">
-            <div class="fogos">
-                <div class="fogo"></div>
-                <div class="fogo"></div>
-                <div class="fogo"></div>
-                <div class="fogo"></div>
-                <div class="fogo"></div>
-            </div>
+            <div class="fogos"></div>
             
             <h1 class="titulo-boas-vindas">Bem-vinda ao Nosso Espaço</h1>
             
@@ -109,7 +103,7 @@
         </div>
     </div>
 
-    <!-- Player de Música -->
+    <!-- Simples Controle de Música -->
     <section id="player-spotify" class="player-section">
         <div class="simple-music-control">
             <h2>🎵 Música de Fundo</h2>
@@ -141,10 +135,10 @@
                 
                 <div class="volume-control-simple">
                     <i class="fas fa-volume-up"></i>
-                    <input type="range" id="volume-slider" min="0" max="100" value="30">
+                    <input type="range" id="volume-slider" min="0" max="100" value="50">
                 </div>
                 
-                <p class="music-hint">Clique no botão Play para começar a música</p>
+                <p class="music-hint">Clique no botão de música no canto inferior direito para começar</p>
             </div>
             
             <div class="decoration-music">
@@ -155,7 +149,7 @@
         </div>
     </section>
 
-    <!-- Carrossel de Fotos -->
+    <!-- Carrossel de Fotos com Mensagens -->
     <section id="carrossel-fotos" class="carrossel-section">
         <h2 class="section-title">Nossos Momentos</h2>
         <p class="section-subtitle">Cada foto conta uma parte da nossa história</p>
@@ -191,24 +185,24 @@
                 </div>
             </div>
             
-            <button class="carrossel-btn prev-btn" aria-label="Slide anterior">
+            <button class="carrossel-btn prev-btn">
                 <i class="fas fa-chevron-left"></i>
             </button>
             
-            <button class="carrossel-btn next-btn" aria-label="Próximo slide">
+            <button class="carrossel-btn next-btn">
                 <i class="fas fa-chevron-right"></i>
             </button>
             
             <div class="carrossel-dots">
-                <span class="dot active" data-index="0"></span>
-                <span class="dot" data-index="1"></span>
-                <span class="dot" data-index="2"></span>
-                <span class="dot" data-index="3"></span>
+                <span class="dot active"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
             </div>
         </div>
     </section>
 
-    <!-- Seção de Gostos -->
+    <!-- Seção de Gostos Dela -->
     <section id="gostos" class="gostos-section">
         <h2 class="section-title">Coisas que Ela Ama</h2>
         <p class="section-subtitle">Um pouco do que faz seus olhos brilharem</p>
@@ -216,7 +210,7 @@
         <div class="gostos-grid">
             <div class="gosto-card" id="gosto-1">
                 <div class="gosto-icon">
-                    <i class="fas fa-drum"></i>
+                    <i class="fas fa-guitar"></i>
                 </div>
                 <h3>Slipknot</h3>
                 <p>A energia e intensidade que ela adora</p>
@@ -290,7 +284,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h2>Uma Mensagem Especial</h2>
-                    <button class="close-modal" aria-label="Fechar">&times;</button>
+                    <button class="close-modal">&times;</button>
                 </div>
                 <div class="modal-body">
                     <div class="modal-image" id="joey-image"></div>
@@ -303,7 +297,7 @@
         </div>
     </section>
 
-    <!-- Estatísticas do Tempo -->
+    <!-- Estatísticas do Tempo que Se Conhecem -->
     <section id="estatisticas" class="estatisticas-section">
         <div class="estatisticas-container">
             <h2 class="section-title">Nossa Jornada</h2>
@@ -321,7 +315,7 @@
                         <button id="salvar-data" class="btn-data">Salvar Data</button>
                     </div>
                     
-                    <div class="data-display" id="data-conhecimento">15 de Março de 2022</div>
+                    <div class="data-display" id="data-conhecimento">15 de março de 2022</div>
                 </div>
             </div>
             
@@ -351,7 +345,7 @@
                 <p>Tudo começou num dia qualquer, mas os momentos que vieram depois foram tudo, menos comuns.</p>
             </div>
 
-            <!-- Linha do Tempo -->
+            <!-- LINHA DO TEMPO PERSONALIZADA -->
             <div class="linha-do-tempo">
                 <div class="linha"></div>
                 
@@ -394,7 +388,7 @@
         </div>
     </section>
 
-    <!-- Mensagens Bonitas -->
+    <!-- Mensagens Bonitas com Efeitos -->
     <section id="mensagens" class="mensagens-section">
         <h2 class="section-title">Mensagens Para Você</h2>
         <p class="section-subtitle">Palavras que vêm do coração</p>
@@ -464,7 +458,7 @@
         </div>
     </section>
 
-    <!-- Roleta -->
+    <!-- Roleta "Onde Vamos Hoje?" -->
     <section id="roleta" class="roleta-section">
         <div class="roleta-container">
             <h2 class="section-title">Onde Vamos Hoje?</h2>
@@ -523,9 +517,10 @@
         </div>
     </section>
 
-    <!-- Final -->
+    <!-- Final Surpreendente -->
     <section id="final" class="final-section">
         <div class="final-container">
+            <!-- Efeitos especiais de coração -->
             <div class="coracoes-especiais">
                 <div class="coracao-final"></div>
                 <div class="coracao-final"></div>
@@ -576,23 +571,23 @@
         </div>
     </section>
 
-    <!-- Música de Fundo -->
+    <!-- MÚSICA DE FUNDO -->
     <audio id="musicaFundo" loop style="display: none;">
         <source src="musicas/musica1.mp3" type="audio/mpeg">
-        Seu navegador não suporta áudio HTML5.
+        Seu navegador não suporta o elemento de áudio.
     </audio>
 
-    <!-- Botão de Música Flutuante -->
+    <!-- BOTÃO SIMPLES PARA MÚSICA -->
     <div class="controle-musica-simples">
-        <button id="btnMusica" aria-label="Controlar música">
-            <i class="fas fa-play"></i>
+        <button id="btnMusica">
+            <i class="fas fa-volume-mute"></i>
         </button>
     </div>
 
-    <!-- Elementos Decorativos -->
+    <!-- Elementos decorativos flutuantes -->
     <div class="coracoes-flutuantes"></div>
     
-    <!-- Particles JS Container -->
+    <!-- Efeitos de Partículas em Tela Cheia -->
     <div id="particles-js"></div>
     
     <!-- Scripts -->
