@@ -2,15 +2,16 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Um Presente Especial Para Você</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>❤️</text></svg>">
 </head>
 <body>
     <!-- Tela de Surpresa Inicial -->
-    <section id="surpresa" class="surpresa-section">
+    <section id="surpresa" class="surpresa-section active">
         <div class="surpresa-container">
             <div class="flor flor-1"></div>
             <div class="flor flor-2"></div>
@@ -44,10 +45,22 @@
     <section id="boas-vindas" class="boas-vindas-section">
         <div class="boas-vindas-container">
             <div class="fogos">
-                <!-- ... fogos ... -->
+                <div class="fogo"></div>
+                <div class="fogo"></div>
+                <div class="fogo"></div>
+                <div class="fogo"></div>
+                <div class="fogo"></div>
             </div>
             
             <h1 class="titulo-boas-vindas">Bem-vinda ao Nosso Espaço</h1>
+            
+            <div class="decoration">
+                <div class="linha"></div>
+                <div class="coracao-grande">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <div class="linha"></div>
+            </div>
             
             <p class="mensagem-boas-vindas">
                 Este lugar foi criado especialmente para você. Cada detalhe foi pensado para mostrar o quanto você é especial.
@@ -77,10 +90,10 @@
             </button>
             
             <div class="notas-musicais">
-                <div class="nota"></div>
-                <div class="nota"></div>
-                <div class="nota"></div>
-                <div class="nota"></div>
+                <div class="nota">♪</div>
+                <div class="nota">♫</div>
+                <div class="nota">♩</div>
+                <div class="nota">♪</div>
             </div>
         </div>
     </section>
@@ -96,7 +109,7 @@
         </div>
     </div>
 
-    <!-- Simples Controle de Música -->
+    <!-- Player de Música -->
     <section id="player-spotify" class="player-section">
         <div class="simple-music-control">
             <h2>🎵 Música de Fundo</h2>
@@ -128,10 +141,10 @@
                 
                 <div class="volume-control-simple">
                     <i class="fas fa-volume-up"></i>
-                    <input type="range" id="volume-slider" min="0" max="100" value="50">
+                    <input type="range" id="volume-slider" min="0" max="100" value="30">
                 </div>
                 
-                <p class="music-hint">Clique no "Play la no cantinho inferior direito para começar a música</p>
+                <p class="music-hint">Clique no botão Play para começar a música</p>
             </div>
             
             <div class="decoration-music">
@@ -142,7 +155,7 @@
         </div>
     </section>
 
-    <!-- Carrossel de Fotos com Mensagens -->
+    <!-- Carrossel de Fotos -->
     <section id="carrossel-fotos" class="carrossel-section">
         <h2 class="section-title">Nossos Momentos</h2>
         <p class="section-subtitle">Cada foto conta uma parte da nossa história</p>
@@ -178,24 +191,24 @@
                 </div>
             </div>
             
-            <button class="carrossel-btn prev-btn">
+            <button class="carrossel-btn prev-btn" aria-label="Slide anterior">
                 <i class="fas fa-chevron-left"></i>
             </button>
             
-            <button class="carrossel-btn next-btn">
+            <button class="carrossel-btn next-btn" aria-label="Próximo slide">
                 <i class="fas fa-chevron-right"></i>
             </button>
             
             <div class="carrossel-dots">
-                <span class="dot active"></span>
-                <span class="dot"></span>
-                <span class="dot"></span>
-                <span class="dot"></span>
+                <span class="dot active" data-index="0"></span>
+                <span class="dot" data-index="1"></span>
+                <span class="dot" data-index="2"></span>
+                <span class="dot" data-index="3"></span>
             </div>
         </div>
     </section>
 
-    <!-- Seção de Gostos Dela -->
+    <!-- Seção de Gostos -->
     <section id="gostos" class="gostos-section">
         <h2 class="section-title">Coisas que Ela Ama</h2>
         <p class="section-subtitle">Um pouco do que faz seus olhos brilharem</p>
@@ -203,7 +216,7 @@
         <div class="gostos-grid">
             <div class="gosto-card" id="gosto-1">
                 <div class="gosto-icon">
-                    <i class="fas fa-guitar"></i>
+                    <i class="fas fa-drum"></i>
                 </div>
                 <h3>Slipknot</h3>
                 <p>A energia e intensidade que ela adora</p>
@@ -277,7 +290,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h2>Uma Mensagem Especial</h2>
-                    <button class="close-modal">&times;</button>
+                    <button class="close-modal" aria-label="Fechar">&times;</button>
                 </div>
                 <div class="modal-body">
                     <div class="modal-image" id="joey-image"></div>
@@ -290,7 +303,7 @@
         </div>
     </section>
 
-    <!-- Estatísticas do Tempo que Se Conhecem -->
+    <!-- Estatísticas do Tempo -->
     <section id="estatisticas" class="estatisticas-section">
         <div class="estatisticas-container">
             <h2 class="section-title">Nossa Jornada</h2>
@@ -308,7 +321,7 @@
                         <button id="salvar-data" class="btn-data">Salvar Data</button>
                     </div>
                     
-                    <div class="data-display" id="data-conhecimento">15 de Abril de 2025</div>
+                    <div class="data-display" id="data-conhecimento">15 de Março de 2022</div>
                 </div>
             </div>
             
@@ -338,14 +351,14 @@
                 <p>Tudo começou num dia qualquer, mas os momentos que vieram depois foram tudo, menos comuns.</p>
             </div>
 
-            <!-- LINHA DO TEMPO PERSONALIZADA -->
+            <!-- Linha do Tempo -->
             <div class="linha-do-tempo">
                 <div class="linha"></div>
                 
                 <div class="evento">
                     <div class="evento-dot"></div>
                     <div class="evento-content">
-                        <h4>15 de Abril de 2025</h4>
+                        <h4>15 de Março de 2022</h4>
                         <p>Dia que a gente se conheceu 💫</p>
                         <div class="data-detalhe">O começo de tudo</div>
                     </div>
@@ -354,7 +367,7 @@
                 <div class="evento">
                     <div class="evento-dot"></div>
                     <div class="evento-content">
-                        <h4>30 de Agosto de 2025</h4>
+                        <h4>30 de Agosto de 2022</h4>
                         <p>Nosso primeiro rolê juntos 🎉</p>
                     </div>
                 </div>
@@ -362,7 +375,7 @@
                 <div class="evento">
                     <div class="evento-dot"></div>
                     <div class="evento-content">
-                        <h4>27 de Outubro de 2025</h4>
+                        <h4>27 de Outubro de 2022</h4>
                         <p>Primeiro filme juntos 🎬</p>
                     </div>
                 </div>
@@ -381,7 +394,7 @@
         </div>
     </section>
 
-    <!-- Mensagens Bonitas com Efeitos -->
+    <!-- Mensagens Bonitas -->
     <section id="mensagens" class="mensagens-section">
         <h2 class="section-title">Mensagens Para Você</h2>
         <p class="section-subtitle">Palavras que vêm do coração</p>
@@ -451,7 +464,7 @@
         </div>
     </section>
 
-    <!-- Roleta "Onde Vamos Hoje?" -->
+    <!-- Roleta -->
     <section id="roleta" class="roleta-section">
         <div class="roleta-container">
             <h2 class="section-title">Onde Vamos Hoje?</h2>
@@ -510,10 +523,9 @@
         </div>
     </section>
 
-    <!-- Final Surpreendente -->
+    <!-- Final -->
     <section id="final" class="final-section">
         <div class="final-container">
-            <!-- Efeitos especiais de coração -->
             <div class="coracoes-especiais">
                 <div class="coracao-final"></div>
                 <div class="coracao-final"></div>
@@ -523,7 +535,7 @@
             </div>
             
             <div class="final-conteudo">
-                <h1 class="final-titulo">Para Uma Pessoa Incrivel</h1>
+                <h1 class="final-titulo">Para Uma Pessoa Incrível</h1>
                 
                 <div class="final-mensagem">
                     <p>Este site foi criado com um único propósito: lembrar você do quanto é especial.</p>
@@ -564,22 +576,23 @@
         </div>
     </section>
 
-        <!-- MÚSICA DE FUNDO - VERSÃO SIMPLES E FUNCIONAL -->
+    <!-- Música de Fundo -->
     <audio id="musicaFundo" loop style="display: none;">
         <source src="musicas/musica1.mp3" type="audio/mpeg">
+        Seu navegador não suporta áudio HTML5.
     </audio>
 
-<!-- BOTÃO SIMPLES PARA MÚSICA -->
-<div class="controle-musica-simples">
-    <button id="btnMusica">
-        <i class="fas fa-play"></i>
-    </button>
-</div>
+    <!-- Botão de Música Flutuante -->
+    <div class="controle-musica-simples">
+        <button id="btnMusica" aria-label="Controlar música">
+            <i class="fas fa-play"></i>
+        </button>
+    </div>
 
-    <!-- Elementos decorativos flutuantes -->
+    <!-- Elementos Decorativos -->
     <div class="coracoes-flutuantes"></div>
     
-    <!-- Efeitos de Partículas em Tela Cheia -->
+    <!-- Particles JS Container -->
     <div id="particles-js"></div>
     
     <!-- Scripts -->
