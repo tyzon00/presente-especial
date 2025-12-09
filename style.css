@@ -2010,3 +2010,81 @@ body.start-at-top {
     background: rgba(255, 107, 149, 1);
     box-shadow: 0 6px 20px rgba(0,0,0,0.4);
 }
+
+/* ====================
+   CORREÇÃO PARA CELULAR
+   ==================== */
+
+/* Força visibilidade dos elementos no celular */
+@media (max-width: 768px) {
+    /* TELA DE BOAS-VINDAS */
+    #boas-vindas {
+        display: flex !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+    
+    .boas-vindas-container {
+        padding: 20px !important;
+        width: 100% !important;
+    }
+    
+    /* BOTÃO INICIAR EXPERIÊNCIA */
+    .btn-iniciar {
+        display: flex !important;
+        visibility: visible !important;
+        width: 90% !important;
+        max-width: 300px !important;
+        margin: 30px auto !important;
+        padding: 18px 30px !important;
+        font-size: 1.2em !important;
+        position: relative !important;
+        z-index: 100 !important;
+    }
+    
+    /* ELEMENTOS INTERATIVOS */
+    .elementos-interativos {
+        flex-wrap: wrap !important;
+        gap: 15px !important;
+        margin: 30px 0 !important;
+    }
+    
+    .elemento-interativo {
+        width: 60px !important;
+        height: 60px !important;
+        font-size: 1.5em !important;
+    }
+    
+    /* TÍTULOS */
+    .titulo-boas-vindas {
+        font-size: 2em !important;
+        line-height: 1.2 !important;
+        margin: 20px 0 !important;
+        padding: 0 15px !important;
+    }
+    
+    .mensagem-boas-vindas {
+        font-size: 1.1em !important;
+        line-height: 1.5 !important;
+        padding: 0 15px !important;
+        margin: 20px 0 !important;
+    }
+}
+
+/* Para telas MUITO pequenas */
+@media (max-width: 480px) {
+    .titulo-boas-vindas {
+        font-size: 1.8em !important;
+    }
+    
+    .btn-iniciar {
+        font-size: 1.1em !important;
+        padding: 16px 25px !important;
+    }
+    
+    .elemento-interativo {
+        width: 50px !important;
+        height: 50px !important;
+        font-size: 1.3em !important;
+    }
+}
