@@ -1,122 +1,18 @@
-/* ====================================
-   CORREÇÃO DE BUGS PARA CELULAR
-   ==================================== */
+/* ===========================================================================
+   CONFIGURAÇÕES E VARIÁVEIS GLOBAIS
+   =========================================================================== */
 
-// Força carregamento correto no celular
-function corrigirCelular() {
-    console.log("📱 Aplicando correções para celular...");
-    
-    // Detecta se é celular
-    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-    
-    if (isMobile) {
-        console.log("📱 Dispositivo móvel detectado");
-        
-        // Correções CSS imediatas
-        document.body.style.overflowX = 'hidden';
-        document.body.style.width = '100%';
-        
-        // Garante que a tela de boas-vindas aparece
-        const boasVindas = document.getElementById('boas-vindas');
-        if (boasVindas) {
-            boasVindas.style.display = 'flex';
-            boasVindas.style.visibility = 'visible';
-            boasVindas.style.opacity = '1';
-        }
-        
-        // Garante que o botão aparece
-        const btnIniciar = document.getElementById('btn-iniciar');
-        if (btnIniciar) {
-            btnIniciar.style.display = 'flex';
-            btnIniciar.style.visibility = 'visible';
-            btnIniciar.style.opacity = '1';
-            btnIniciar.style.position = 'relative';
-            btnIniciar.style.zIndex = '100';
-        }
-    }
-}
-
-// Executa quando a página carrega
-document.addEventListener('DOMContentLoaded', function() {
-    // Chama a correção para celular
-    corrigirCelular();
-    
-    // Força a página para começar no topo
-    window.scrollTo(0, 0);
-    document.body.classList.add('start-at-top');
-    
-    // Remove classe quando a experiência começar
-    document.getElementById('btn-iniciar')?.addEventListener('click', function() {
-        document.body.classList.remove('start-at-top');
-        console.log("🚀 Botão 'Iniciar Experiência' clicado!");
-    });
-    
-    // Resto do seu código de inicialização...
-    inicializarParticlesJS();
-    carregarImagens();
-    iniciarContagemRegressiva();
-    inicializarCoracoesFlutuantes();
-    
-    console.log("🎁 Site carregado com correções para celular!");
-});
-
-// ==============================================
-// MÚSICA DE FUNDO - VERSÃO CORRIGIDA E SIMPLES
-// ==============================================
-
-// Aguarda o carregamento completo do DOM
-document.addEventListener('DOMContentLoaded', function() {
-    // Configura a música
-    const musica = document.getElementById('musicaFundo');
-    const btnMusica = document.getElementById('btnMusica');
-    
-    if (musica) {
-        // Configurações iniciais
-        musica.volume = 0.3;
-        musica.loop = true;
-        
-        console.log("🎵 Música configurada (volume: 0.3, loop: ativo)");
-        
-        // SOMENTE inicia a música quando o usuário clicar no botão específico
-        if (btnMusica) {
-            btnMusica.addEventListener('click', function(e) {
-                e.stopPropagation();
-                
-                if (musica.paused) {
-                    musica.play()
-                        .then(() => {
-                            console.log('🎵 Música iniciada pelo botão!');
-                            this.innerHTML = '<i class="fas fa-volume-up"></i>';
-                            this.style.background = 'rgba(255, 107, 149, 0.9)';
-                        })
-                        .catch(err => {
-                            console.log('❌ Erro ao iniciar música:', err);
-                        });
-                } else {
-                    musica.pause();
-                    this.innerHTML = '<i class="fas fa-volume-mute"></i>';
-                    this.style.background = 'rgba(100, 100, 100, 0.7)';
-                }
-            });
-        }
-    } else {
-        console.log("❌ Elemento de música não encontrado");
-    }
-});
-
-/* ==================== VARIÁVEIS GLOBAIS E CONFIGURAÇÕES ==================== */
-
-// Configurações de imagens (SUBSTITUA COM SUAS PRÓPRIAS IMAGENS)
-const configImagens = {
+// Configuração de imagens (SUBSTITUA COM SUAS IMAGENS)
+const CONFIG_IMAGENS = {
     momentos: [
-        "https://media.discordapp.net/attachments/1306702378971566112/1447851153059741698/IMG_2322.jpg?ex=69391ff6&is=6937ce76&hm=8395046be5bd8dc2fe38b51f6a641d1f317e9a4b65e8cc056e06692688703c94&=&format=webp&width=517&height=919",
-        "https://media.discordapp.net/attachments/1306702378971566112/1447851154053664860/2B994FDC-64EE-4BEE-A972-B35BE4039900.jpg?ex=69391ff6&is=6937ce76&hm=74821c2f016c46be6e6979b72b05ea7c202d7295a9010c610dbd976cfac966ce&=&format=webp&width=518&height=920",
-        "https://media.discordapp.net/attachments/1306702378971566112/1447851154976407622/IMG_1941.jpg?ex=69391ff7&is=6937ce77&hm=de73ff7d5e5e6ebcdefe091d2f8fcc6c07f840b3747378ad377be487d664e98b&=&format=webp&width=1227&height=920",
-        "https://media.discordapp.net/attachments/1306702378971566112/1447851340587073578/image.jpg?ex=69392023&is=6937cea3&hm=d66a7b51a907b2dd2c4e450425678dfb20f835fd56f8ef2169ee2c04d5200045&=&format=webp&width=473&height=1024"
+        "https://media.discordapp.net/attachments/1306702378971566112/1447851153059741698/IMG_2322.jpg",
+        "https://media.discordapp.net/attachments/1306702378971566112/1447851154053664860/2B994FDC-64EE-4BEE-A972-B35BE4039900.jpg",
+        "https://media.discordapp.net/attachments/1306702378971566112/1447851154976407622/IMG_1941.jpg",
+        "https://media.discordapp.net/attachments/1306702378971566112/1447851340587073578/image.jpg"
     ],
     gostos: [
         "https://i.pinimg.com/1200x/c0/09/e3/c009e3432f53b1e0ff06de3c7b99f6fd.jpg",
-        "https://media.discordapp.net/attachments/1306702378971566112/1447849089239875725/IMG_2459.png?ex=69391e0a&is=6937cc8a&hm=1e71baffae219e3f230c4844f52a66c6d19549842d79d526ee833bfa556b4ab4&=&format=webp&quality=lossless&width=199&height=350",
+        "https://media.discordapp.net/attachments/1306702378971566112/1447849089239875725/IMG_2459.png",
         "https://i.pinimg.com/736x/de/74/f1/de74f121fa90f0d8cd6b47d59c5c8590.jpg",
         "https://i.pinimg.com/1200x/5d/78/85/5d788520ba606cecc27f7a1a70c153e9.jpg",
         "https://i.pinimg.com/736x/af/40/08/af4008b714477e737c9f35d613e7ac17.jpg",
@@ -125,54 +21,165 @@ const configImagens = {
     joey: "https://images.unsplash.com/photo-1511735111819-9a3f7709049c?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
 };
 
-// Variáveis globais
-let backgroundMusic;
-let isPlaying = false;
-let dataConhecimento = new Date('2022-03-15');
+// Estado global da aplicação
+const APP_STATE = {
+    isMobile: false,
+    currentSection: 'surpresa',
+    isMusicPlaying: false,
+    isTransitioning: false,
+    dataConhecimento: new Date('2022-03-15'),
+    carrosselInterval: null,
+    currentCarrosselSlide: 0,
+    roletaSpinning: false
+};
 
-/* ==================== FUNÇÕES DE INICIALIZAÇÃO ==================== */
+// Elementos DOM cacheados
+const DOM = {};
+
+/* ===========================================================================
+   INICIALIZAÇÃO DA APLICAÇÃO
+   =========================================================================== */
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Força a página para começar no topo
-    window.scrollTo(0, 0);
-    document.body.classList.add('start-at-top');
+    console.log('🎁 Site especial carregando...');
     
-    // Remove classe quando a experiência começar
-    document.getElementById('btn-iniciar')?.addEventListener('click', function() {
-        document.body.classList.remove('start-at-top');
-    });
+    // Detectar dispositivo móvel
+    detectarDispositivo();
     
-    // Inicializa componentes
+    // Cachear elementos DOM importantes
+    cachearElementosDOM();
+    
+    // Inicializar Particles.js
     inicializarParticlesJS();
-    carregarImagens();
+    
+    // Inicializar contagem regressiva
     iniciarContagemRegressiva();
+    
+    // Carregar imagens
+    carregarImagens();
+    
+    // Inicializar corações flutuantes
     inicializarCoracoesFlutuantes();
     
-    console.log("🎁 Site especial carregado com sucesso!");
-    console.log("💝 Pronto para começar a experiência!");
+    // Adicionar listeners
+    adicionarEventListeners();
+    
+    // Forçar scroll para o topo
+    window.scrollTo(0, 0);
+    
+    console.log('✅ Aplicação inicializada com sucesso!');
 });
 
-/* ==================== PARTICLES.JS ==================== */
+/* ===========================================================================
+   FUNÇÕES DE DETECÇÃO E UTILITÁRIAS
+   =========================================================================== */
+
+function detectarDispositivo() {
+    const userAgent = navigator.userAgent.toLowerCase();
+    APP_STATE.isMobile = /iphone|ipad|ipod|android|webos|blackberry|windows phone/.test(userAgent);
+    
+    if (APP_STATE.isMobile) {
+        document.body.classList.add('mobile');
+        console.log('📱 Modo mobile ativado');
+    } else {
+        console.log('🖥️ Modo desktop ativado');
+    }
+}
+
+function cachearElementosDOM() {
+    // Seções principais
+    DOM.sections = {
+        surpresa: document.getElementById('surpresa'),
+        boasVindas: document.getElementById('boas-vindas'),
+        transicao: document.getElementById('transicao'),
+        player: document.getElementById('player-spotify'),
+        carrossel: document.getElementById('carrossel-fotos'),
+        gostos: document.getElementById('gostos'),
+        estatisticas: document.getElementById('estatisticas'),
+        mensagens: document.getElementById('mensagens'),
+        roleta: document.getElementById('roleta'),
+        final: document.getElementById('final')
+    };
+    
+    // Botões importantes
+    DOM.buttons = {
+        iniciar: document.getElementById('btn-iniciar'),
+        playMusic: document.getElementById('play-music'),
+        pauseMusic: document.getElementById('pause-music'),
+        nextMusic: document.getElementById('next-music'),
+        btnMusica: document.getElementById('btnMusica'),
+        btnJoey: document.getElementById('btn-joey'),
+        closeModal: document.querySelector('.close-modal'),
+        girarRoleta: document.getElementById('girar-roleta'),
+        btnFinal: document.getElementById('btn-final'),
+        salvarData: document.getElementById('salvar-data'),
+        prevCarrossel: document.querySelector('.carrossel-btn.prev-btn'),
+        nextCarrossel: document.querySelector('.carrossel-btn.next-btn')
+    };
+    
+    // Elementos de mídia
+    DOM.media = {
+        musicaFundo: document.getElementById('musicaFundo'),
+        volumeSlider: document.getElementById('volume-slider'),
+        vinyl: document.querySelector('.vinyl-record')
+    };
+    
+    // Outros elementos
+    DOM.contadorSurpresa = document.getElementById('contador');
+    DOM.dataDisplay = document.getElementById('data-conhecimento');
+    DOM.roleta = document.getElementById('roleta');
+    DOM.resultadoRoleta = document.getElementById('resultado-roleta');
+    DOM.modalJoey = document.getElementById('joey-modal');
+}
+
+/* ===========================================================================
+   PARTICLES.JS
+   =========================================================================== */
 
 function inicializarParticlesJS() {
+    if (typeof particlesJS !== 'function') {
+        console.warn('⚠️ Particles.js não carregado');
+        return;
+    }
+    
     particlesJS("particles-js", {
         particles: {
             number: {
-                value: 60,
+                value: APP_STATE.isMobile ? 40 : 60,
                 density: {
                     enable: true,
                     value_area: 800
                 }
             },
-            color: { value: "#ff6b6b" },
-            shape: { type: "circle" },
+            color: { 
+                value: ["#ff6b6b", "#ffd166", "#6a11cb", "#2575fc"]
+            },
+            shape: { 
+                type: "circle",
+                stroke: {
+                    width: 0,
+                    color: "#000000"
+                }
+            },
             opacity: {
                 value: 0.5,
-                random: true
+                random: true,
+                anim: {
+                    enable: true,
+                    speed: 1,
+                    opacity_min: 0.1,
+                    sync: false
+                }
             },
             size: {
                 value: 3,
-                random: true
+                random: true,
+                anim: {
+                    enable: true,
+                    speed: 2,
+                    size_min: 0.1,
+                    sync: false
+                }
             },
             line_linked: {
                 enable: true,
@@ -188,7 +195,12 @@ function inicializarParticlesJS() {
                 random: true,
                 straight: false,
                 out_mode: "out",
-                bounce: false
+                bounce: false,
+                attract: {
+                    enable: false,
+                    rotateX: 600,
+                    rotateY: 1200
+                }
             }
         },
         interactivity: {
@@ -209,338 +221,402 @@ function inicializarParticlesJS() {
     });
 }
 
-/* ==================== GERENCIAMENTO DE IMAGENS ==================== */
+/* ===========================================================================
+   CARREGAMENTO DE IMAGENS
+   =========================================================================== */
 
 function carregarImagens() {
-    // Carrega imagens do carrossel
-    for (let i = 0; i < configImagens.momentos.length; i++) {
-        const imgElement = document.getElementById(`slide-image-${i+1}`);
-        if (imgElement) {
-            imgElement.style.backgroundImage = `url('${configImagens.momentos[i]}')`;
-        }
-    }
+    console.log('🖼️ Carregando imagens...');
     
-    // Carrega imagens dos gostos
-    for (let i = 0; i < configImagens.gostos.length; i++) {
-        const cardElement = document.getElementById(`gosto-${i+1}`);
-        if (cardElement) {
-            cardElement.style.backgroundImage = `url('${configImagens.gostos[i]}')`;
+    // Carregar imagens do carrossel
+    CONFIG_IMAGENS.momentos.forEach((url, index) => {
+        const slideImage = document.getElementById(`slide-image-${index + 1}`);
+        if (slideImage) {
+            slideImage.style.backgroundImage = `url('${url}')`;
+            
+            // Pré-carregar imagens
+            const img = new Image();
+            img.src = url;
         }
-    }
+    });
     
-    // Carrega imagem do Joey
+    // Carregar imagens dos gostos
+    CONFIG_IMAGENS.gostos.forEach((url, index) => {
+        const card = document.getElementById(`gosto-${index + 1}`);
+        if (card) {
+            card.style.backgroundImage = `url('${url}')`;
+            
+            // Pré-carregar imagens
+            const img = new Image();
+            img.src = url;
+        }
+    });
+    
+    // Carregar imagem do Joey
     const joeyImage = document.getElementById('joey-image');
-    if (joeyImage && configImagens.joey) {
-        joeyImage.style.backgroundImage = `url('${configImagens.joey}')`;
+    if (joeyImage && CONFIG_IMAGENS.joey) {
+        joeyImage.style.backgroundImage = `url('${CONFIG_IMAGENS.joey}')`;
+        
+        // Pré-carregar imagem
+        const img = new Image();
+        img.src = CONFIG_IMAGENS.joey;
     }
+    
+    console.log('✅ Imagens carregadas com sucesso');
 }
 
-/* ==================== CONTAGEM REGRESSIVA INICIAL ==================== */
+/* ===========================================================================
+   CONTAGEM REGRESSIVA INICIAL
+   =========================================================================== */
 
 function iniciarContagemRegressiva() {
-    const surpresaSection = document.getElementById('surpresa');
-    const contadorElement = document.getElementById('contador');
     let contador = 3;
     
-    const intervaloContador = setInterval(() => {
+    const intervalo = setInterval(() => {
         contador--;
-        contadorElement.textContent = contador;
         
-        // Efeito visual
-        contadorElement.style.transform = 'scale(1.2)';
-        setTimeout(() => {
-            contadorElement.style.transform = 'scale(1)';
-        }, 200);
+        if (DOM.contadorSurpresa) {
+            DOM.contadorSurpresa.textContent = contador;
+            
+            // Efeito visual
+            DOM.contadorSurpresa.style.transform = 'scale(1.2)';
+            setTimeout(() => {
+                DOM.contadorSurpresa.style.transform = 'scale(1)';
+            }, 150);
+        }
         
         if (contador <= 0) {
-            clearInterval(intervaloContador);
-            mostrarTelaBoasVindas();
+            clearInterval(intervalo);
+            mostrarBoasVindas();
         }
     }, 1000);
 }
 
-/* ==================== TRANSIÇÕES DE TELA ==================== */
+/* ===========================================================================
+   GERENCIAMENTO DE SEÇÕES E TRANSIÇÕES
+   =========================================================================== */
 
-function mostrarTelaBoasVindas() {
-    console.log("🔄 Mostrando tela de boas-vindas...");
+function mostrarBoasVindas() {
+    console.log('🌟 Mostrando tela de boas-vindas');
     
-    const surpresaSection = document.getElementById('surpresa');
-    surpresaSection.style.opacity = '0';
-    surpresaSection.style.transition = 'opacity 1s ease';
+    esconderSecao('surpresa');
+    mostrarSecao('boasVindas');
     
+    // Iniciar efeitos da tela de boas-vindas
     setTimeout(() => {
-        surpresaSection.style.display = 'none';
-        const boasVindasSection = document.getElementById('boas-vindas');
-        boasVindasSection.style.display = 'flex';
-        
-        setTimeout(() => {
-            boasVindasSection.style.opacity = '1';
-            iniciarEfeitosBoasVindas();
-        }, 50);
-    }, 1000);
-}
-
-function iniciarTransicao() {
-    console.log("✨ Iniciando transição...");
-    
-    const boasVindasSection = document.getElementById('boas-vindas');
-    boasVindasSection.style.opacity = '0';
-    boasVindasSection.style.transition = 'opacity 0.5s ease';
-    
-    const transicaoSection = document.getElementById('transicao');
-    transicaoSection.style.display = 'flex';
-    
-    setTimeout(() => {
-        transicaoSection.style.opacity = '1';
-        criarParticulasTransicao();
-        
-        setTimeout(() => {
-            mostrarPlayerMusica();
-        }, 3000);
+        if (DOM.buttons.iniciar) {
+            DOM.buttons.iniciar.classList.add('pulse');
+        }
     }, 500);
 }
 
-function iniciarEfeitosBoasVindas() {
-    console.log("🎉 Iniciando efeitos de boas-vindas...");
+function iniciarExperiencia() {
+    console.log('🚀 Iniciando experiência completa');
     
-    // VERIFICA se o botão existe
-    const btnIniciar = document.getElementById('btn-iniciar');
+    if (APP_STATE.isTransitioning) return;
+    APP_STATE.isTransitioning = true;
     
-    if (!btnIniciar) {
-        console.error("❌ BOTÃO 'btn-iniciar' NÃO ENCONTRADO!");
-        // Cria o botão se não existir (fallback)
-        criarBotaoFallback();
-        return;
+    // Efeito no botão
+    if (DOM.buttons.iniciar) {
+        DOM.buttons.iniciar.style.transform = 'scale(0.95)';
+        DOM.buttons.iniciar.classList.remove('pulse');
     }
     
-    console.log("✅ Botão encontrado, configurando...");
-    
-    // Configura o botão
-    btnIniciar.addEventListener('click', function() {
-        console.log("🚀 Iniciando experiência...");
-        
-        // Efeito visual
-        this.style.transform = 'scale(0.95)';
-        
-        // Log para debug
-        console.log("📱 Dispositivo:", navigator.userAgent);
-        console.log("🖥️ Largura da tela:", window.innerWidth);
-        
-        setTimeout(() => {
-            iniciarTransicao();
-        }, 300);
-    });
-    
-    // Efeitos nos elementos interativos (se existirem)
-    const elementosInterativos = document.querySelectorAll('.elemento-interativo');
-    if (elementosInterativos.length > 0) {
-        elementosInterativos.forEach(elemento => {
-            elemento.addEventListener('click', function() {
-                this.style.transform = 'scale(0.9)';
-                setTimeout(() => {
-                    this.style.transform = 'scale(1)';
-                }, 200);
-                
-                const nota = this.getAttribute('data-note');
-                tocarNota(nota);
-            });
-        });
-    }
+    // Transição
+    setTimeout(() => {
+        esconderSecao('boasVindas');
+        mostrarTransicao();
+    }, 300);
 }
 
-// Fallback caso o botão não exista
-function criarBotaoFallback() {
-    console.log("⚠️ Criando botão fallback...");
+function mostrarTransicao() {
+    console.log('🔄 Iniciando transição');
     
-    const container = document.querySelector('.boas-vindas-container');
-    if (!container) return;
+    mostrarSecao('transicao');
+    criarParticulasTransicao();
     
-    const botaoFallback = document.createElement('button');
-    botaoFallback.id = 'btn-iniciar-fallback';
-    botaoFallback.innerHTML = '<span>Iniciar a Experiência</span>';
-    botaoFallback.className = 'btn-iniciar';
-    botaoFallback.style.cssText = `
-        background: linear-gradient(45deg, #6a11cb, #2575fc);
-        border: none;
-        color: white;
-        font-size: 1.3rem;
-        padding: 18px 45px;
-        border-radius: 50px;
-        cursor: pointer;
-        margin-top: 30px;
-        font-weight: 600;
-        display: block !important;
-        visibility: visible !important;
-    `;
+    // Animação da barra de progresso
+    const barra = document.querySelector('.barra');
+    if (barra) {
+        barra.style.animation = 'loading 2s ease-in-out';
+    }
     
-    botaoFallback.addEventListener('click', function() {
-        console.log("🚀 Fallback: Iniciando experiência...");
-        iniciarTransicao();
-    });
+    // Avançar após a transição
+    setTimeout(() => {
+        esconderSecao('transicao');
+        mostrarPlayerMusica();
+    }, 3000);
+}
+
+function mostrarPlayerMusica() {
+    console.log('🎵 Mostrando player de música');
     
-    container.appendChild(botaoFallback);
+    mostrarSecao('player');
+    inicializarPlayerMusica();
+    
+    // Auto-avançar após alguns segundos
+    setTimeout(() => {
+        mostrarCarrossel();
+    }, 8000);
+}
+
+function mostrarCarrossel() {
+    console.log('📸 Mostrando carrossel');
+    
+    esconderSecao('player');
+    mostrarSecao('carrossel');
+    inicializarCarrossel();
+    
+    // Auto-avançar
+    setTimeout(() => {
+        mostrarGostos();
+    }, 12000);
+}
+
+function mostrarGostos() {
+    console.log('❤️ Mostrando seção de gostos');
+    
+    esconderSecao('carrossel');
+    mostrarSecao('gostos');
+    inicializarGostos();
+    
+    // Auto-avançar
+    setTimeout(() => {
+        mostrarEstatisticas();
+    }, 15000);
+}
+
+function mostrarEstatisticas() {
+    console.log('📊 Mostrando estatísticas');
+    
+    esconderSecao('gostos');
+    mostrarSecao('estatisticas');
+    inicializarEstatisticas();
+    
+    // Auto-avançar
+    setTimeout(() => {
+        mostrarMensagens();
+    }, 12000);
+}
+
+function mostrarMensagens() {
+    console.log('💌 Mostrando mensagens');
+    
+    esconderSecao('estatisticas');
+    mostrarSecao('mensagens');
+    
+    // Auto-avançar
+    setTimeout(() => {
+        mostrarRoleta();
+    }, 12000);
+}
+
+function mostrarRoleta() {
+    console.log('🎡 Mostrando roleta');
+    
+    esconderSecao('mensagens');
+    mostrarSecao('roleta');
+    inicializarRoleta();
+    
+    // Auto-avançar
+    setTimeout(() => {
+        mostrarFinal();
+    }, 15000);
+}
+
+function mostrarFinal() {
+    console.log('✨ Mostrando seção final');
+    
+    esconderSecao('roleta');
+    mostrarSecao('final');
+    inicializarFinal();
+}
+
+function esconderSecao(key) {
+    const section = DOM.sections[key];
+    if (!section) return;
+    
+    section.style.opacity = '0';
+    section.style.transition = 'opacity 0.5s ease';
+    
+    setTimeout(() => {
+        section.classList.remove('active');
+        APP_STATE.isTransitioning = false;
+    }, 500);
+}
+
+function mostrarSecao(key) {
+    const section = DOM.sections[key];
+    if (!section) return;
+    
+    section.classList.add('active');
+    
+    setTimeout(() => {
+        section.style.opacity = '1';
+        
+        // Scroll suave para a seção
+        if (!APP_STATE.isMobile) {
+            section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    }, 50);
+    
+    APP_STATE.currentSection = key;
 }
 
 function criarParticulasTransicao() {
-    const particulasContainer = document.querySelector('.particulas-transicao');
+    const container = document.querySelector('.particulas-transicao');
+    if (!container) return;
     
-    for (let i = 0; i < 30; i++) {
+    // Limpar particulas existentes
+    container.innerHTML = '';
+    
+    // Criar novas partículas
+    for (let i = 0; i < 25; i++) {
         const particula = document.createElement('div');
-        particula.style.position = 'absolute';
-        particula.style.width = `${Math.random() * 10 + 5}px`;
-        particula.style.height = particula.style.width;
-        particula.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 70%)`;
-        particula.style.borderRadius = '50%';
-        particula.style.left = `${Math.random() * 100}%`;
-        particula.style.top = `${Math.random() * 100}%`;
-        particula.style.opacity = '0.7';
-        particula.style.animation = `float ${Math.random() * 3 + 2}s infinite ease-in-out`;
+        particula.style.cssText = `
+            position: absolute;
+            width: ${Math.random() * 10 + 5}px;
+            height: ${Math.random() * 10 + 5}px;
+            background-color: hsl(${Math.random() * 360}, 100%, 70%);
+            border-radius: 50%;
+            left: ${Math.random() * 100}%;
+            top: ${Math.random() * 100}%;
+            opacity: 0;
+            animation: float ${Math.random() * 3 + 2}s ease-in-out forwards;
+        `;
         
-        particulasContainer.appendChild(particula);
+        container.appendChild(particula);
     }
 }
 
-/* ==================== PLAYER DE MÚSICA ==================== */
+/* ===========================================================================
+   PLAYER DE MÚSICA
+   =========================================================================== */
 
-function mostrarPlayerMusica() {
-    console.log("🎵 Mostrando player de música...");
+function inicializarPlayerMusica() {
+    console.log('🎶 Inicializando player de música');
     
-    const transicaoSection = document.getElementById('transicao');
-    transicaoSection.style.opacity = '0';
-    transicaoSection.style.transition = 'opacity 0.5s ease';
-    
-    setTimeout(() => {
-        transicaoSection.style.display = 'none';
-        const playerSection = document.getElementById('player-spotify');
-        playerSection.style.display = 'flex';
+    // Configurar áudio
+    if (DOM.media.musicaFundo) {
+        DOM.media.musicaFundo.volume = 0.3;
+        DOM.media.musicaFundo.loop = true;
         
-        setTimeout(() => {
-            playerSection.style.opacity = '1';
-            setupSimpleMusicPlayer();
-            
-            setTimeout(() => {
-                mostrarCarrosselFotos();
-            }, 8000);
-        }, 50);
-    }, 500);
-}
-
-function setupSimpleMusicPlayer() {
-    console.log("🎵 Configurando player de música simples...");
-    
-    backgroundMusic = new Audio();
-    backgroundMusic.loop = true;
-    backgroundMusic.volume = 0.3;
-    
-    // CAMINHO CORRETO PARA SUA ESTRUTURA
-    const musicFile = 'musica1.mp3'; // ← ARQUIVO NA MESMA PASTA QUE index.html
-    
-    backgroundMusic.src = musicFile;
-    console.log("🎶 Carregando sua música:", musicFile);
-    console.log("📁 Caminho atual:", window.location.href);
-    
-    // Configura controles
-    const playBtn = document.getElementById('play-music');
-    const pauseBtn = document.getElementById('pause-music');
-    const nextBtn = document.getElementById('next-music');
-    const volumeSlider = document.getElementById('volume-slider');
-    
-    if (playBtn) {
-        playBtn.addEventListener('click', () => playMusic());
+        // Adicionar tratamento de erros
+        DOM.media.musicaFundo.addEventListener('error', (e) => {
+            console.error('❌ Erro ao carregar áudio:', e);
+            mostrarErroMusica('Não foi possível carregar a música. Verifique o arquivo.');
+        });
     }
     
-    if (pauseBtn) {
-        pauseBtn.addEventListener('click', () => pauseMusic());
+    // Configurar botão de música flutuante
+    if (DOM.buttons.btnMusica) {
+        DOM.buttons.btnMusica.addEventListener('click', toggleMusica);
     }
     
-    // No seu caso, o botão "next" deve apenas reiniciar a música
-    if (nextBtn) {
-        nextBtn.addEventListener('click', () => {
-            if (backgroundMusic) {
-                backgroundMusic.currentTime = 0;
-                if (!isPlaying) {
-                    playMusic();
+    // Configurar controles do player
+    if (DOM.buttons.playMusic) {
+        DOM.buttons.playMusic.addEventListener('click', playMusica);
+    }
+    
+    if (DOM.buttons.pauseMusic) {
+        DOM.buttons.pauseMusic.addEventListener('click', pauseMusica);
+    }
+    
+    if (DOM.buttons.nextMusic) {
+        DOM.buttons.nextMusic.addEventListener('click', function() {
+            if (DOM.media.musicaFundo) {
+                DOM.media.musicaFundo.currentTime = 0;
+                if (!APP_STATE.isMusicPlaying) {
+                    playMusica();
                 }
             }
         });
     }
     
-    if (volumeSlider) {
-        volumeSlider.addEventListener('input', (e) => {
+    // Configurar controle de volume
+    if (DOM.media.volumeSlider) {
+        DOM.media.volumeSlider.addEventListener('input', function(e) {
             const volume = e.target.value / 100;
-            if (backgroundMusic) {
-                backgroundMusic.volume = volume;
-                console.log("🔊 Volume ajustado para:", volume);
+            if (DOM.media.musicaFundo) {
+                DOM.media.musicaFundo.volume = volume;
             }
         });
         
-        // Define volume inicial
-        backgroundMusic.volume = volumeSlider.value / 100;
+        // Volume inicial
+        if (DOM.media.musicaFundo) {
+            DOM.media.musicaFundo.volume = DOM.media.volumeSlider.value / 100;
+        }
     }
-    
-    // Configura animação do vinil
-    const vinyl = document.querySelector('.vinyl-record');
-    if (vinyl) {
-        vinyl.style.animationPlayState = 'paused';
-    }
-    
-    // Remove qualquer autoplay automático
-    // A música só tocará quando o usuário clicar em "Play"
 }
 
-function playMusic() {
-    if (!backgroundMusic) {
-        console.log("❌ Player de música não inicializado");
-        showMusicError("Player de música não inicializado");
-        return;
-    }
+function playMusica() {
+    if (!DOM.media.musicaFundo) return;
     
-    // Verifica se a música foi carregada
-    if (backgroundMusic.error) {
-        console.log("❌ Erro na fonte de áudio");
-        showMusicError("Erro ao carregar a música. Verifique o arquivo.");
-        return;
-    }
+    // Tentar reproduzir
+    const playPromise = DOM.media.musicaFundo.play();
     
-    backgroundMusic.play()
-        .then(() => {
-            isPlaying = true;
-            console.log("✅ Sua música está tocando!");
+    if (playPromise !== undefined) {
+        playPromise.then(() => {
+            console.log('▶️ Música iniciada');
+            APP_STATE.isMusicPlaying = true;
             
-            const vinyl = document.querySelector('.vinyl-record');
-            if (vinyl) {
-                vinyl.style.animationPlayState = 'running';
+            // Atualizar UI
+            if (DOM.buttons.playMusic) DOM.buttons.playMusic.style.display = 'none';
+            if (DOM.buttons.pauseMusic) DOM.buttons.pauseMusic.style.display = 'flex';
+            if (DOM.media.vinyl) DOM.media.vinyl.classList.add('playing');
+            if (DOM.buttons.btnMusica) {
+                DOM.buttons.btnMusica.innerHTML = '<i class="fas fa-volume-up"></i>';
             }
             
-            updatePlayButton(true);
-        })
-        .catch(e => {
-            console.log("❌ Erro ao tocar música:", e.name, e.message);
+            // Animar vinil
+            if (DOM.media.vinyl) {
+                DOM.media.vinyl.style.animationPlayState = 'running';
+            }
+        }).catch(error => {
+            console.error('❌ Erro ao reproduzir música:', error);
+            mostrarErroMusica('Clique no botão para ativar o áudio');
             
-            if (e.name === 'NotAllowedError') {
-                showMusicPermissionMessage();
-            } else {
-                showMusicError("Não foi possível tocar a música: " + e.message);
+            // Mostrar instruções
+            if (error.name === 'NotAllowedError') {
+                mostrarToast('🔇 Clique no botão de música para permitir o áudio');
             }
         });
+    }
 }
 
-function pauseMusic() {
-    if (!backgroundMusic) return;
+function pauseMusica() {
+    if (!DOM.media.musicaFundo) return;
     
-    backgroundMusic.pause();
-    isPlaying = false;
-    console.log("⏸️ Música pausada");
+    DOM.media.musicaFundo.pause();
+    APP_STATE.isMusicPlaying = false;
+    console.log('⏸️ Música pausada');
     
-    const vinyl = document.querySelector('.vinyl-record');
-    if (vinyl) {
-        vinyl.style.animationPlayState = 'paused';
+    // Atualizar UI
+    if (DOM.buttons.playMusic) DOM.buttons.playMusic.style.display = 'flex';
+    if (DOM.buttons.pauseMusic) DOM.buttons.pauseMusic.style.display = 'none';
+    if (DOM.media.vinyl) DOM.media.vinyl.classList.remove('playing');
+    if (DOM.buttons.btnMusica) {
+        DOM.buttons.btnMusica.innerHTML = '<i class="fas fa-volume-mute"></i>';
     }
     
-    updatePlayButton(false);
+    // Pausar animação do vinil
+    if (DOM.media.vinyl) {
+        DOM.media.vinyl.style.animationPlayState = 'paused';
+    }
 }
 
-function showMusicError(message) {
+function toggleMusica() {
+    if (APP_STATE.isMusicPlaying) {
+        pauseMusica();
+    } else {
+        playMusica();
+    }
+}
+
+function mostrarErroMusica(mensagem) {
+    console.error('🎵 Erro de música:', mensagem);
+    
+    // Criar mensagem de erro
     const errorDiv = document.createElement('div');
     errorDiv.style.cssText = `
         position: fixed;
@@ -548,371 +624,363 @@ function showMusicError(message) {
         right: 20px;
         background: #ff4444;
         color: white;
-        padding: 15px;
+        padding: 15px 20px;
         border-radius: 10px;
         z-index: 10000;
         max-width: 300px;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-        animation: fadeIn 0.5s;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+        animation: fadeIn 0.3s ease;
+        font-family: 'Poppins', sans-serif;
+        font-size: 14px;
     `;
+    
     errorDiv.innerHTML = `
-        <strong>⚠️ Problema com a Música</strong>
-        <p style="margin: 5px 0; font-size: 0.9em;">${message}</p>
-        <p style="margin: 5px 0; font-size: 0.8em;">Verifique se o arquivo "musica1.mp3" está na pasta "musicas"</p>
+        <div style="display: flex; align-items: center; gap: 10px;">
+            <i class="fas fa-exclamation-triangle"></i>
+            <strong>Problema com a música</strong>
+        </div>
+        <p style="margin: 8px 0 0 0; font-size: 13px; opacity: 0.9;">${mensagem}</p>
     `;
     
     document.body.appendChild(errorDiv);
     
+    // Remover após 5 segundos
     setTimeout(() => {
-        errorDiv.style.animation = 'fadeOut 0.5s';
-        setTimeout(() => errorDiv.remove(), 500);
+        errorDiv.style.animation = 'fadeOut 0.3s ease';
+        setTimeout(() => errorDiv.remove(), 300);
     }, 5000);
 }
 
-function showMusicPermissionMessage() {
-    const message = document.createElement('div');
-    message.style.cssText = `
+function mostrarToast(mensagem) {
+    const toast = document.createElement('div');
+    toast.style.cssText = `
         position: fixed;
-        top: 20px;
+        bottom: 80px;
         right: 20px;
-        background: #ff6b6b;
+        background: rgba(0, 0, 0, 0.8);
         color: white;
-        padding: 15px;
-        border-radius: 10px;
+        padding: 12px 18px;
+        border-radius: 8px;
         z-index: 10000;
-        max-width: 300px;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-        animation: fadeIn 0.5s;
+        max-width: 250px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        animation: fadeIn 0.3s ease;
+        font-family: 'Poppins', sans-serif;
+        font-size: 14px;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255,255,255,0.1);
     `;
-    message.innerHTML = `
-        <strong>🎵 Permissão necessária</strong>
-        <p>Clique no botão "Play" para ativar a música de fundo!</p>
-    `;
     
-    document.body.appendChild(message);
+    toast.textContent = mensagem;
+    document.body.appendChild(toast);
     
+    // Remover após 3 segundos
     setTimeout(() => {
-        message.style.animation = 'fadeOut 0.5s';
-        setTimeout(() => message.remove(), 500);
-    }, 5000);
+        toast.style.animation = 'fadeOut 0.3s ease';
+        setTimeout(() => toast.remove(), 300);
+    }, 3000);
 }
 
-function updatePlayButton(playing) {
-    const playBtn = document.getElementById('play-music');
-    const pauseBtn = document.getElementById('pause-music');
-    
-    if (playing) {
-        if (playBtn) playBtn.style.display = 'none';
-        if (pauseBtn) pauseBtn.style.display = 'flex';
-    } else {
-        if (playBtn) playBtn.style.display = 'flex';
-        if (pauseBtn) pauseBtn.style.display = 'none';
-    }
-}
-
-/* ==================== CARROSSEL DE FOTOS ==================== */
-
-function mostrarCarrosselFotos() {
-    console.log("📸 Mostrando carrossel de fotos...");
-    
-    const playerSection = document.getElementById('player-spotify');
-    playerSection.style.opacity = '0';
-    playerSection.style.transition = 'opacity 0.5s ease';
-    
-    setTimeout(() => {
-        playerSection.style.display = 'none';
-        const carrosselSection = document.getElementById('carrossel-fotos');
-        carrosselSection.style.display = 'flex';
-        
-        setTimeout(() => {
-            carrosselSection.style.opacity = '1';
-            inicializarCarrossel();
-        }, 50);
-    }, 500);
-}
+/* ===========================================================================
+   CARROSSEL DE FOTOS
+   =========================================================================== */
 
 function inicializarCarrossel() {
-    console.log("🔄 Inicializando carrossel...");
+    console.log('🔄 Inicializando carrossel');
     
     const track = document.querySelector('.carrossel-track');
     const slides = document.querySelectorAll('.carrossel-slide');
     const dots = document.querySelectorAll('.dot');
-    const prevBtn = document.querySelector('.carrossel-btn.prev-btn');
-    const nextBtn = document.querySelector('.carrossel-btn.next-btn');
-    let slideAtual = 0;
     
     if (!track || !slides.length) {
-        console.error("❌ Elementos do carrossel não encontrados!");
+        console.error('❌ Elementos do carrossel não encontrados');
         return;
     }
     
-    function atualizarCarrossel() {
-        track.style.transform = `translateX(-${slideAtual * 100}%)`;
-        
-        // Atualizar slides ativos
-        slides.forEach((slide, index) => {
-            slide.classList.toggle('active', index === slideAtual);
+    // Configurar navegação por botões
+    if (DOM.buttons.prevCarrossel) {
+        DOM.buttons.prevCarrossel.addEventListener('click', () => {
+            mudarSlideCarrossel(-1);
+            resetarAutoPlay();
         });
-        
-        // Atualizar dots
-        dots.forEach((dot, index) => {
-            dot.classList.toggle('active', index === slideAtual);
+    }
+    
+    if (DOM.buttons.nextCarrossel) {
+        DOM.buttons.nextCarrossel.addEventListener('click', () => {
+            mudarSlideCarrossel(1);
+            resetarAutoPlay();
         });
-        
-        console.log(`📸 Slide atual: ${slideAtual + 1}/${slides.length}`);
     }
     
-    // Função para próximo slide
-    function proximoSlide() {
-        slideAtual = (slideAtual + 1) % slides.length;
-        atualizarCarrossel();
-    }
-    
-    // Função para slide anterior
-    function slideAnterior() {
-        slideAtual = (slideAtual - 1 + slides.length) % slides.length;
-        atualizarCarrossel();
-    }
-    
-    // Configurar botão NEXT
-    if (nextBtn) {
-        nextBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            console.log("👉 Botão próximo clicado");
-            proximoSlide();
-        });
-    } else {
-        console.error("❌ Botão next não encontrado!");
-    }
-    
-    // Configurar botão PREV (AGORA FUNCIONANDO)
-    if (prevBtn) {
-        prevBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            console.log("👈 Botão anterior clicado");
-            slideAnterior();
-        });
-    } else {
-        console.error("❌ Botão prev não encontrado!");
-    }
-    
-    // Configurar dots
+    // Configurar navegação por dots
     dots.forEach((dot, index) => {
         dot.addEventListener('click', () => {
-            slideAtual = index;
-            atualizarCarrossel();
+            mudarParaSlide(index);
+            resetarAutoPlay();
         });
     });
     
-    // Auto-play
-    let intervaloCarrossel = setInterval(() => {
-        proximoSlide();
-    }, 5000);
+    // Suporte para touch/swipe
+    let touchStartX = 0;
+    let touchEndX = 0;
     
-    // Pausar auto-play ao interagir
-    const carrosselContainer = document.querySelector('.carrossel-container');
-    if (carrosselContainer) {
-        carrosselContainer.addEventListener('mouseenter', () => {
-            clearInterval(intervaloCarrossel);
-            console.log("⏸️ Auto-play pausado");
-        });
+    track.addEventListener('touchstart', (e) => {
+        touchStartX = e.touches[0].clientX;
+    }, { passive: true });
+    
+    track.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].clientX;
+        const diff = touchStartX - touchEndX;
         
-        carrosselContainer.addEventListener('mouseleave', () => {
-            intervaloCarrossel = setInterval(() => {
-                proximoSlide();
-            }, 5000);
-            console.log("▶️ Auto-play retomado");
-        });
-    }
-    
-    // Adicionar navegação por touch/swipe
-    let startX = 0;
-    let endX = 0;
-    
-    if (track) {
-        track.addEventListener('touchstart', (e) => {
-            startX = e.touches[0].clientX;
-        }, { passive: true });
-        
-        track.addEventListener('touchend', (e) => {
-            endX = e.changedTouches[0].clientX;
-            const diff = startX - endX;
-            
-            if (Math.abs(diff) > 50) { // Limite de swipe
-                if (diff > 0) {
-                    proximoSlide(); // Swipe para esquerda
-                } else {
-                    slideAnterior(); // Swipe para direita
-                }
+        if (Math.abs(diff) > 50) {
+            if (diff > 0) {
+                mudarSlideCarrossel(1); // Swipe para esquerda
+            } else {
+                mudarSlideCarrossel(-1); // Swipe para direita
             }
-        }, { passive: true });
+            resetarAutoPlay();
+        }
+    }, { passive: true });
+    
+    // Iniciar auto-play
+    iniciarAutoPlay();
+}
+
+function mudarSlideCarrossel(direction) {
+    const slides = document.querySelectorAll('.carrossel-slide');
+    const dots = document.querySelectorAll('.dot');
+    
+    // Remover classe ativa do slide atual
+    slides[APP_STATE.currentCarrosselSlide].classList.remove('active');
+    dots[APP_STATE.currentCarrosselSlide].classList.remove('active');
+    
+    // Calcular novo slide
+    APP_STATE.currentCarrosselSlide = (APP_STATE.currentCarrosselSlide + direction + slides.length) % slides.length;
+    
+    // Aplicar classe ativa ao novo slide
+    slides[APP_STATE.currentCarrosselSlide].classList.add('active');
+    dots[APP_STATE.currentCarrosselSlide].classList.add('active');
+    
+    // Mover track
+    const track = document.querySelector('.carrossel-track');
+    if (track) {
+        track.style.transform = `translateX(-${APP_STATE.currentCarrosselSlide * 100}%)`;
+    }
+}
+
+function mudarParaSlide(index) {
+    const slides = document.querySelectorAll('.carrossel-slide');
+    const dots = document.querySelectorAll('.dot');
+    
+    if (index < 0 || index >= slides.length) return;
+    
+    // Remover classe ativa do slide atual
+    slides[APP_STATE.currentCarrosselSlide].classList.remove('active');
+    dots[APP_STATE.currentCarrosselSlide].classList.remove('active');
+    
+    // Atualizar slide atual
+    APP_STATE.currentCarrosselSlide = index;
+    
+    // Aplicar classe ativa ao novo slide
+    slides[APP_STATE.currentCarrosselSlide].classList.add('active');
+    dots[APP_STATE.currentCarrosselSlide].classList.add('active');
+    
+    // Mover track
+    const track = document.querySelector('.carrossel-track');
+    if (track) {
+        track.style.transform = `translateX(-${APP_STATE.currentCarrosselSlide * 100}%)`;
+    }
+}
+
+function iniciarAutoPlay() {
+    if (APP_STATE.carrosselInterval) {
+        clearInterval(APP_STATE.carrosselInterval);
     }
     
-    // Inicializar primeiro slide
-    atualizarCarrossel();
-    
-    setTimeout(() => {
-        mostrarGostos();
-    }, 12000);
+    APP_STATE.carrosselInterval = setInterval(() => {
+        mudarSlideCarrossel(1);
+    }, 5000);
 }
 
-/* ==================== SEÇÃO DE GOSTOS ==================== */
-
-function mostrarGostos() {
-    console.log("❤️ Mostrando seção de gostos...");
-    
-    const carrosselSection = document.getElementById('carrossel-fotos');
-    carrosselSection.style.opacity = '0';
-    carrosselSection.style.transition = 'opacity 0.5s ease';
-    
-    setTimeout(() => {
-        carrosselSection.style.display = 'none';
-        const gostosSection = document.getElementById('gostos');
-        gostosSection.style.display = 'flex';
-        
-        setTimeout(() => {
-            gostosSection.style.opacity = '1';
-            inicializarGostos();
-        }, 50);
-    }, 500);
+function resetarAutoPlay() {
+    if (APP_STATE.carrosselInterval) {
+        clearInterval(APP_STATE.carrosselInterval);
+    }
+    iniciarAutoPlay();
 }
+
+/* ===========================================================================
+   SEÇÃO DE GOSTOS
+   =========================================================================== */
 
 function inicializarGostos() {
-    console.log("🎸 Inicializando seção de gostos...");
+    console.log('🎸 Inicializando seção de gostos');
     
     // Modal do Joey Jordison
-    const btnJoey = document.getElementById('btn-joey');
-    const modalJoey = document.getElementById('joey-modal');
-    const closeModal = document.querySelector('.close-modal');
-    
-    if (btnJoey && modalJoey) {
-        btnJoey.addEventListener('click', () => {
-            modalJoey.style.display = 'flex';
-            setTimeout(() => {
-                modalJoey.style.opacity = '1';
-            }, 50);
-        });
-    }
-    
-    if (closeModal && modalJoey) {
-        closeModal.addEventListener('click', () => {
-            modalJoey.style.opacity = '0';
-            setTimeout(() => {
-                modalJoey.style.display = 'none';
-            }, 500);
-        });
-    }
-    
-    if (modalJoey) {
-        modalJoey.addEventListener('click', (e) => {
-            if (e.target === modalJoey) {
-                modalJoey.style.opacity = '0';
-                setTimeout(() => {
-                    modalJoey.style.display = 'none';
-                }, 500);
+    if (DOM.buttons.btnJoey) {
+        DOM.buttons.btnJoey.addEventListener('click', () => {
+            if (DOM.modalJoey) {
+                DOM.modalJoey.classList.add('active');
+                document.body.style.overflow = 'hidden';
             }
         });
     }
     
-    setTimeout(() => {
-        mostrarEstatisticas();
-    }, 15000);
+    if (DOM.buttons.closeModal) {
+        DOM.buttons.closeModal.addEventListener('click', () => {
+            if (DOM.modalJoey) {
+                DOM.modalJoey.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+    }
+    
+    // Fechar modal ao clicar fora
+    if (DOM.modalJoey) {
+        DOM.modalJoey.addEventListener('click', (e) => {
+            if (e.target === DOM.modalJoey) {
+                DOM.modalJoey.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+    }
+    
+    // Fechar modal com ESC
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && DOM.modalJoey && DOM.modalJoey.classList.contains('active')) {
+            DOM.modalJoey.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    });
 }
 
-/* ==================== ESTATÍSTICAS DO TEMPO ==================== */
-
-function mostrarEstatisticas() {
-    console.log("📊 Mostrando estatísticas...");
-    
-    const gostosSection = document.getElementById('gostos');
-    gostosSection.style.opacity = '0';
-    gostosSection.style.transition = 'opacity 0.5s ease';
-    
-    setTimeout(() => {
-        gostosSection.style.display = 'none';
-        const estatisticasSection = document.getElementById('estatisticas');
-        estatisticasSection.style.display = 'flex';
-        
-        setTimeout(() => {
-            estatisticasSection.style.opacity = '1';
-            inicializarEstatisticas();
-        }, 50);
-    }, 500);
-}
+/* ===========================================================================
+   ESTATÍSTICAS DO TEMPO
+   =========================================================================== */
 
 function inicializarEstatisticas() {
-    console.log("⏰ Inicializando estatísticas...");
+    console.log('⏰ Inicializando estatísticas');
     
-    const dataDisplay = document.getElementById('data-conhecimento');
-    const diaInput = document.getElementById('dia-input');
-    const mesInput = document.getElementById('mes-input');
-    const anoInput = document.getElementById('ano-input');
-    const salvarDataBtn = document.getElementById('salvar-data');
+    // Carregar data salva
+    carregarDataSalva();
     
-    // Tenta carregar data salva
-    const dataSalva = localStorage.getItem('dataConhecimento');
+    // Configurar botão salvar data
+    if (DOM.buttons.salvarData) {
+        DOM.buttons.salvarData.addEventListener('click', salvarData);
+    }
+    
+    // Atualizar contador imediatamente e a cada segundo
+    atualizarContadorTempo();
+    setInterval(atualizarContadorTempo, 1000);
+}
+
+function carregarDataSalva() {
+    const dataSalva = localStorage.getItem('dataConhecimentoEspecial');
+    
     if (dataSalva) {
-        dataConhecimento = new Date(parseInt(dataSalva));
+        APP_STATE.dataConhecimento = new Date(parseInt(dataSalva));
+        
+        // Preencher inputs
+        const diaInput = document.getElementById('dia-input');
+        const mesInput = document.getElementById('mes-input');
+        const anoInput = document.getElementById('ano-input');
         
         if (diaInput && mesInput && anoInput) {
-            diaInput.value = dataConhecimento.getDate();
-            mesInput.value = dataConhecimento.getMonth() + 1;
-            anoInput.value = dataConhecimento.getFullYear();
-        }
-    }
-    
-    // Botão salvar data
-    if (salvarDataBtn) {
-        salvarDataBtn.addEventListener('click', function() {
-            const dia = parseInt(diaInput.value) || 15;
-            const mes = parseInt(mesInput.value) || 3;
-            const ano = parseInt(anoInput.value) || 2022;
-            
-            if (dia < 1 || dia > 31 || mes < 1 || mes > 12 || ano < 2000 || ano > new Date().getFullYear()) {
-                alert("Por favor, insira uma data válida!");
-                return;
-            }
-            
-            dataConhecimento = new Date(ano, mes - 1, dia);
-            localStorage.setItem('dataConhecimento', dataConhecimento.getTime());
-            
-            atualizarDataDisplay();
-            
-            this.textContent = "Data Salva!";
-            this.style.background = "linear-gradient(45deg, #1DB954, #1ed760)";
-            
-            setTimeout(() => {
-                this.textContent = "Salvar Data";
-                this.style.background = "linear-gradient(45deg, #ff6b6b, #ff9a76)";
-            }, 2000);
-        });
-    }
-    
-    function atualizarDataDisplay() {
-        if (dataDisplay) {
-            const options = { year: 'numeric', month: 'long', day: 'numeric' };
-            dataDisplay.textContent = dataConhecimento.toLocaleDateString('pt-BR', options);
+            diaInput.value = APP_STATE.dataConhecimento.getDate();
+            mesInput.value = APP_STATE.dataConhecimento.getMonth() + 1;
+            anoInput.value = APP_STATE.dataConhecimento.getFullYear();
         }
     }
     
     atualizarDataDisplay();
+}
+
+function salvarData() {
+    const diaInput = document.getElementById('dia-input');
+    const mesInput = document.getElementById('mes-input');
+    const anoInput = document.getElementById('ano-input');
     
-    function atualizarContador() {
-        const agora = new Date();
-        const diferenca = agora - dataConhecimento;
+    if (!diaInput || !mesInput || !anoInput) return;
+    
+    const dia = parseInt(diaInput.value);
+    const mes = parseInt(mesInput.value);
+    const ano = parseInt(anoInput.value);
+    
+    // Validação básica
+    if (!dia || !mes || !ano) {
+        mostrarToast('⚠️ Por favor, preencha todos os campos');
+        return;
+    }
+    
+    if (dia < 1 || dia > 31) {
+        mostrarToast('⚠️ Dia inválido');
+        return;
+    }
+    
+    if (mes < 1 || mes > 12) {
+        mostrarToast('⚠️ Mês inválido');
+        return;
+    }
+    
+    const anoAtual = new Date().getFullYear();
+    if (ano < 2000 || ano > anoAtual) {
+        mostrarToast(`⚠️ Ano deve estar entre 2000 e ${anoAtual}`);
+        return;
+    }
+    
+    // Criar nova data
+    APP_STATE.dataConhecimento = new Date(ano, mes - 1, dia);
+    
+    // Salvar no localStorage
+    localStorage.setItem('dataConhecimentoEspecial', APP_STATE.dataConhecimento.getTime());
+    
+    // Atualizar display
+    atualizarDataDisplay();
+    
+    // Feedback visual
+    if (DOM.buttons.salvarData) {
+        DOM.buttons.salvarData.textContent = 'Data Salva!';
+        DOM.buttons.salvarData.classList.add('success');
         
-        const anos = Math.floor(diferenca / (1000 * 60 * 60 * 24 * 365.25));
-        const meses = Math.floor((diferenca % (1000 * 60 * 60 * 24 * 365.25)) / (1000 * 60 * 60 * 24 * 30.44));
-        const dias = Math.floor((diferenca % (1000 * 60 * 60 * 24 * 30.44)) / (1000 * 60 * 60 * 24));
-        const horas = Math.floor((diferenca % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        
-        document.getElementById('anos').textContent = anos;
-        document.getElementById('meses').textContent = meses;
-        document.getElementById('dias').textContent = dias;
-        document.getElementById('horas').textContent = horas;
-        
+        setTimeout(() => {
+            DOM.buttons.salvarData.textContent = 'Salvar Data';
+            DOM.buttons.salvarData.classList.remove('success');
+        }, 2000);
+    }
+    
+    mostrarToast('✅ Data salva com sucesso!');
+}
+
+function atualizarDataDisplay() {
+    if (!DOM.dataDisplay) return;
+    
+    const options = { 
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric' 
+    };
+    
+    DOM.dataDisplay.textContent = APP_STATE.dataConhecimento.toLocaleDateString('pt-BR', options);
+}
+
+function atualizarContadorTempo() {
+    const agora = new Date();
+    const diferenca = agora - APP_STATE.dataConhecimento;
+    
+    // Cálculos
+    const anos = Math.floor(diferenca / (1000 * 60 * 60 * 24 * 365.25));
+    const meses = Math.floor((diferenca % (1000 * 60 * 60 * 24 * 365.25)) / (1000 * 60 * 60 * 24 * 30.44));
+    const dias = Math.floor((diferenca % (1000 * 60 * 60 * 24 * 30.44)) / (1000 * 60 * 60 * 24));
+    const horas = Math.floor((diferenca % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    
+    // Atualizar elementos
+    document.getElementById('anos').textContent = anos;
+    document.getElementById('meses').textContent = meses;
+    document.getElementById('dias').textContent = dias;
+    document.getElementById('horas').textContent = horas;
+    
+    // Efeito visual nos números
+    if (diferenca % 1000 < 100) {
         const contadores = document.querySelectorAll('.contador-valor');
         contadores.forEach(contador => {
             contador.style.transform = 'scale(1.1)';
@@ -921,39 +989,326 @@ function inicializarEstatisticas() {
             }, 200);
         });
     }
-    
-    atualizarContador();
-    setInterval(atualizarContador, 1000);
-    
-    setTimeout(() => {
-        mostrarMensagens();
-    }, 12000);
 }
 
-/* ==================== MENSAGENS BONITAS ==================== */
+/* ===========================================================================
+   ROLETA
+   =========================================================================== */
 
-function mostrarMensagens() {
-    console.log("💌 Mostrando mensagens...");
+function inicializarRoleta() {
+    console.log('🎡 Inicializando roleta');
     
-    const estatisticasSection = document.getElementById('estatisticas');
-    estatisticasSection.style.opacity = '0';
-    estatisticasSection.style.transition = 'opacity 0.5s ease';
+    // Configurações das opções da roleta
+    const OPCOES_ROLETA = {
+        'cinema': {
+            titulo: "Cinema 🎬",
+            mensagem: "Que tal assistirmos um filme juntos? Escolha o que quiser ver!"
+        },
+        'parque': {
+            titulo: "Parque 🌳",
+            mensagem: "Um passeio no parque para respirar ar puro e conversar sobre tudo."
+        },
+        'cafe': {
+            titulo: "Cafeteria ☕",
+            mensagem: "Vamos tomar um café e comer algo gostoso enquanto conversamos."
+        },
+        'restaurante': {
+            titulo: "Restaurante 🍽️",
+            mensagem: "Vamo a um restaurante à sua escolha! Qualquer um que você quiser."
+        },
+        'barrock': {
+            titulo: "Bar de Rock 🤘",
+            mensagem: "Vamos a um BAR ROCK! Escolha um bar que você adore."
+        },
+        'andar': {
+            titulo: "Andar por aí 🚶‍♀️",
+            mensagem: "Vamos andar por ai, e conhecer novos lugares juntos."
+        },
+        'escolha': {
+            titulo: "Sua Escolha 🎯",
+            mensagem: "Vamos em um lugar à sua escolha, pode escolher qualquer um!"
+        },
+        'surpresa': {
+            titulo: "Surpresa! 🎁",
+            mensagem: "Deixe comigo! Vou planejar uma surpresa especial para você."
+        }
+    };
     
-    setTimeout(() => {
-        estatisticasSection.style.display = 'none';
-        const mensagensSection = document.getElementById('mensagens');
-        mensagensSection.style.display = 'flex';
+    // Configurar botão de girar
+    if (DOM.buttons.girarRoleta) {
+        DOM.buttons.girarRoleta.addEventListener('click', function() {
+            if (APP_STATE.roletaSpinning) return;
+            
+            // Desabilitar botão durante a animação
+            APP_STATE.roletaSpinning = true;
+            this.disabled = true;
+            this.style.opacity = '0.7';
+            
+            // Calcular rotação aleatória
+            const giros = 5 + Math.random() * 3;
+            const anguloFinal = giros * 360 + Math.floor(Math.random() * 360);
+            
+            // Aplicar rotação
+            if (DOM.roleta) {
+                DOM.roleta.style.transform = `rotate(${anguloFinal}deg)`;
+                DOM.roleta.style.transition = 'transform 4s cubic-bezier(0.17, 0.67, 0.21, 0.99)';
+            }
+            
+            // Determinar resultado após a rotação
+            setTimeout(() => {
+                const anguloNormalizado = anguloFinal % 360;
+                const setor = 45; // 360 / 8 opções
+                const opcaoIndex = Math.floor((360 - anguloNormalizado) / setor) % 8;
+                const opcoes = Array.from(document.querySelectorAll('.roleta-item'));
+                const opcaoSelecionada = opcoes[opcaoIndex].getAttribute('data-value');
+                const resultado = OPCOES_ROLETA[opcaoSelecionada];
+                
+                // Mostrar resultado
+                if (DOM.resultadoRoleta && resultado) {
+                    DOM.resultadoRoleta.innerHTML = `
+                        <h3>🎉 ${resultado.titulo}</h3>
+                        <p>${resultado.mensagem}</p>
+                    `;
+                    
+                    // Efeito visual
+                    DOM.resultadoRoleta.style.animation = 'pulse 1s ease';
+                    setTimeout(() => {
+                        DOM.resultadoRoleta.style.animation = '';
+                    }, 1000);
+                }
+                
+                // Reabilitar botão
+                APP_STATE.roletaSpinning = false;
+                this.disabled = false;
+                this.style.opacity = '1';
+                
+                // Mostrar confetes
+                lancarConfetes();
+                
+                console.log(`🎯 Roleta: ${resultado.titulo}`);
+                
+            }, 4000);
+        });
+    }
+}
+
+/* ===========================================================================
+   SEÇÃO FINAL
+   =========================================================================== */
+
+function inicializarFinal() {
+    console.log('✨ Inicializando seção final');
+    
+    if (DOM.buttons.btnFinal) {
+        DOM.buttons.btnFinal.addEventListener('click', function() {
+            // Efeito no botão
+            this.style.transform = 'scale(0.95)';
+            
+            // Mostrar confetes
+            lancarConfetes();
+            
+            // Mostrar mensagem final
+            setTimeout(() => {
+                mostrarMensagemFinal();
+            }, 500);
+            
+            // Resetar botão
+            setTimeout(() => {
+                this.style.transform = '';
+            }, 200);
+        });
+    }
+}
+
+function mostrarMensagemFinal() {
+    const mensagem = `
+        💝 Obrigado por existir do seu jeito único. 
         
+        Guarde isso: você é amada e sua importância é real. 
+        
+        Que este espaço reflita sempre o tanto que você significa 
+        para quem te conhece.
+        
+        ❤️
+    `;
+    
+    // Criar modal de mensagem final
+    const modalFinal = document.createElement('div');
+    modalFinal.className = 'modal active';
+    modalFinal.innerHTML = `
+        <div class="modal-content" style="max-width: 500px;">
+            <div class="modal-header" style="background: linear-gradient(90deg, #ff6b6b, #c0392b);">
+                <h2>Uma Última Surpresa 💝</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body" style="padding: 30px; text-align: center;">
+                <div style="font-size: 4rem; margin-bottom: 20px; color: #ff6b6b;">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <p style="white-space: pre-line; line-height: 1.6; font-size: 1.1rem; color: #333;">
+                    ${mensagem}
+                </p>
+                <button class="btn-joey" style="margin-top: 25px; background: linear-gradient(45deg, #6a11cb, #2575fc);">
+                    Fechar
+                </button>
+            </div>
+        </div>
+    `;
+    
+    document.body.appendChild(modalFinal);
+    document.body.style.overflow = 'hidden';
+    
+    // Configurar fechamento
+    const closeBtn = modalFinal.querySelector('.close-modal');
+    const closeBtn2 = modalFinal.querySelector('.btn-joey');
+    
+    const fecharModal = () => {
+        modalFinal.classList.remove('active');
         setTimeout(() => {
-            mensagensSection.style.opacity = '1';
-            inicializarMensagens();
-        }, 50);
-    }, 500);
+            modalFinal.remove();
+            document.body.style.overflow = '';
+        }, 300);
+    };
+    
+    if (closeBtn) closeBtn.addEventListener('click', fecharModal);
+    if (closeBtn2) closeBtn2.addEventListener('click', fecharModal);
+    
+    modalFinal.addEventListener('click', (e) => {
+        if (e.target === modalFinal) fecharModal();
+    });
+    
+    // Fechar com ESC
+    const fecharComESC = (e) => {
+        if (e.key === 'Escape') fecharModal();
+    };
+    
+    document.addEventListener('keydown', fecharComESC);
+    
+    // Remover listener quando modal fechar
+    setTimeout(() => {
+        const checkModal = () => {
+            if (!document.body.contains(modalFinal)) {
+                document.removeEventListener('keydown', fecharComESC);
+            }
+        };
+        setInterval(checkModal, 1000);
+    }, 100);
 }
 
-function inicializarMensagens() {
-    console.log("✨ Inicializando mensagens...");
+/* ===========================================================================
+   CORAÇÕES FLUTUANTES
+   =========================================================================== */
+
+function inicializarCoracoesFlutuantes() {
+    const container = document.querySelector('.coracoes-flutuantes');
+    if (!container) return;
     
+    // Criar corações iniciais
+    for (let i = 0; i < 10; i++) {
+        setTimeout(() => {
+            criarCoracaoFlutuante(container);
+        }, i * 300);
+    }
+    
+    // Continuar criando corações periodicamente
+    setInterval(() => {
+        if (document.visibilityState === 'visible') {
+            criarCoracaoFlutuante(container);
+        }
+    }, 2000);
+}
+
+function criarCoracaoFlutuante(container) {
+    if (!container) return;
+    
+    const coracao = document.createElement('div');
+    coracao.className = 'coracao-flutuante';
+    coracao.innerHTML = '❤️';
+    
+    // Posição aleatória
+    coracao.style.left = `${Math.random() * 100}%`;
+    
+    // Tamanho aleatório
+    const tamanho = Math.random() * 20 + 10;
+    coracao.style.fontSize = `${tamanho}px`;
+    
+    // Opacidade aleatória
+    coracao.style.opacity = `${Math.random() * 0.5 + 0.3}`;
+    
+    // Duração e delay aleatórios
+    const duration = Math.random() * 10 + 10;
+    const delay = Math.random() * 5;
+    
+    coracao.style.animation = `coracao-voar ${duration}s ${delay}s infinite linear`;
+    
+    container.appendChild(coracao);
+    
+    // Remover após animação
+    setTimeout(() => {
+        if (coracao.parentNode === container) {
+            container.removeChild(coracao);
+        }
+    }, (duration + delay) * 1000);
+}
+
+/* ===========================================================================
+   EFEITOS VISUAIS
+   =========================================================================== */
+
+function lancarConfetes() {
+    const confetes = document.querySelectorAll('.confete');
+    confetes.forEach(confete => {
+        confete.style.opacity = '1';
+        confete.style.animation = 'confete-cair 3s ease-in-out';
+    });
+    
+    // Resetar após animação
+    setTimeout(() => {
+        confetes.forEach(confete => {
+            confete.style.opacity = '0';
+            confete.style.animation = '';
+        });
+    }, 3000);
+}
+
+/* ===========================================================================
+   EVENT LISTENERS
+   =========================================================================== */
+
+function adicionarEventListeners() {
+    console.log('🎮 Configurando event listeners');
+    
+    // Botão iniciar experiência
+    if (DOM.buttons.iniciar) {
+        DOM.buttons.iniciar.addEventListener('click', iniciarExperiencia);
+        
+        // Adicionar feedback tátil para mobile
+        if (APP_STATE.isMobile) {
+            DOM.buttons.iniciar.addEventListener('touchstart', function() {
+                this.style.transform = 'scale(0.95)';
+            });
+            
+            DOM.buttons.iniciar.addEventListener('touchend', function() {
+                this.style.transform = '';
+            });
+        }
+    }
+    
+    // Elementos interativos da tela de boas-vindas
+    const elementosInterativos = document.querySelectorAll('.elemento-interativo');
+    elementosInterativos.forEach(elemento => {
+        elemento.addEventListener('click', function() {
+            this.style.transform = 'scale(0.9)';
+            setTimeout(() => {
+                this.style.transform = 'scale(1)';
+            }, 200);
+            
+            const nota = this.getAttribute('data-note');
+            tocarNota(nota);
+        });
+    });
+    
+    // Cards de mensagens
     const mensagemCards = document.querySelectorAll('.mensagem-card');
     mensagemCards.forEach(card => {
         card.addEventListener('mouseenter', function() {
@@ -973,248 +1328,159 @@ function inicializarMensagens() {
         });
     });
     
-    setTimeout(() => {
-        mostrarRoleta();
-    }, 12000);
-}
-
-/* ==================== ROLETA ==================== */
-
-function mostrarRoleta() {
-    console.log("🎡 Mostrando roleta...");
-    
-    const mensagensSection = document.getElementById('mensagens');
-    if (mensagensSection) {
-        mensagensSection.style.opacity = '0';
-        mensagensSection.style.transition = 'opacity 0.5s ease';
-    }
-    
-    setTimeout(() => {
-        if (mensagensSection) {
-            mensagensSection.style.display = 'none';
-        }
-        
-        const roletaSection = document.getElementById('roleta');
-        if (roletaSection) {
-            roletaSection.style.display = 'flex';
-            roletaSection.style.visibility = 'visible';
-            roletaSection.offsetHeight;
-            
+    // Cards de gostos
+    const gostoCards = document.querySelectorAll('.gosto-card');
+    gostoCards.forEach(card => {
+        card.addEventListener('click', function() {
+            this.style.transform = 'scale(0.98)';
             setTimeout(() => {
-                roletaSection.style.opacity = '1';
-                console.log("✅ Roleta carregada");
-                roletaSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                inicializarRoleta();
-            }, 100);
+                this.style.transform = '';
+            }, 200);
+        });
+    });
+    
+    // Prevenir comportamento padrão de gestos
+    document.addEventListener('touchmove', function(e) {
+        if (e.scale !== 1) {
+            e.preventDefault();
         }
-    }, 500);
+    }, { passive: false });
+    
+    // Lidar com mudança de orientação
+    window.addEventListener('orientationchange', function() {
+        setTimeout(() => {
+            location.reload();
+        }, 100);
+    });
+    
+    // Pausar música quando a página não está visível
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden && APP_STATE.isMusicPlaying && DOM.media.musicaFundo) {
+            pauseMusica();
+        }
+    });
+    
+    console.log('✅ Event listeners configurados');
 }
 
-function inicializarRoleta() {
-    console.log("🔄 Inicializando roleta...");
+/* ===========================================================================
+   FUNÇÕES AUXILIARES
+   =========================================================================== */
+
+function tocarNota(nota) {
+    // Simular som de nota musical (pode ser substituído por Web Audio API)
+    const context = new (window.AudioContext || window.webkitAudioContext)();
+    const oscillator = context.createOscillator();
+    const gainNode = context.createGain();
     
-    const roleta = document.getElementById('roleta');
-    const btnGirar = document.getElementById('girar-roleta');
-    const resultadoRoleta = document.getElementById('resultado-roleta');
-    let estaGirando = false;
-    
-    const opcoesRoleta = {
-        'cinema': "Que tal assistirmos um filme juntos?",
-        'parque': "Um passeio no parque para respirar ar puro e conversar sobre tudo.",
-        'cafe': "Vamos tomar um café e comer algo gostoso enquanto conversamos.",
-        'restaurante': "Vamo a um restaurante á sua escolha!",
-        'barrock': "Vamos a um BAR ROCK! Escolha um bar que você adore.",
-        'andar': "Vamos andar por ai, e conhecer novos lugares.",
-        'escolha': "Vamos em um lugar á sua escolha, pode escolher qualquer um!",
-        'surpresa': "Deixe comigo! Vou planejar uma surpresa especial para você."
+    // Mapear nota para frequência
+    const frequencias = {
+        'C': 261.63,
+        'D': 293.66,
+        'E': 329.63,
+        'F': 349.23,
+        'G': 392.00
     };
     
-    if (btnGirar) {
-        btnGirar.addEventListener('click', function() {
-            if (estaGirando) return;
-            
-            estaGirando = true;
-            this.disabled = true;
-            this.style.opacity = '0.7';
-            
-            const giros = 5 + Math.random() * 3;
-            const anguloFinal = giros * 360 + Math.floor(Math.random() * 360);
-            
-            roleta.style.transform = `rotate(${anguloFinal}deg)`;
-            roleta.style.transition = 'transform 4s cubic-bezier(0.17, 0.67, 0.21, 0.99)';
-            
-            setTimeout(() => {
-                const anguloNormalizado = anguloFinal % 360;
-                const setor = 45;
-                const opcaoIndex = Math.floor((360 - anguloNormalizado) / setor) % 8;
-                const opcoes = Array.from(document.querySelectorAll('.roleta-item'));
-                const opcaoSelecionada = opcoes[opcaoIndex].getAttribute('data-value');
-                const mensagem = opcoesRoleta[opcaoSelecionada];
-                
-                if (resultadoRoleta) {
-                    resultadoRoleta.innerHTML = `
-                        <h3>${opcoes[opcaoIndex].querySelector('span').textContent}</h3>
-                        <p>${mensagem}</p>
-                    `;
-                }
-                
-                estaGirando = false;
-                btnGirar.disabled = false;
-                btnGirar.style.opacity = '1';
-                
-                setTimeout(() => {
-                    mostrarFinal();
-                }, 10000);
-            }, 4000);
-        });
-    }
+    const frequencia = frequencias[nota] || 440;
+    
+    oscillator.connect(gainNode);
+    gainNode.connect(context.destination);
+    
+    oscillator.frequency.value = frequencia;
+    oscillator.type = 'sine';
+    
+    gainNode.gain.setValueAtTime(0.3, context.currentTime);
+    gainNode.gain.exponentialRampToValueAtTime(0.01, context.currentTime + 1);
+    
+    oscillator.start(context.currentTime);
+    oscillator.stop(context.currentTime + 1);
 }
 
-/* ==================== SEÇÃO FINAL ==================== */
+/* ===========================================================================
+   API PÚBLICA PARA PERSONALIZAÇÃO
+   =========================================================================== */
 
-function mostrarFinal() {
-    console.log("🌟 Mostrando final...");
-    
-    const roletaSection = document.getElementById('roleta');
-    if (roletaSection) {
-        roletaSection.style.opacity = '0';
-        roletaSection.style.transition = 'opacity 0.5s ease';
-    }
-    
-    setTimeout(() => {
-        if (roletaSection) {
-            roletaSection.style.display = 'none';
-        }
-        
-        const finalSection = document.getElementById('final');
-        if (finalSection) {
-            finalSection.style.display = 'flex';
-            finalSection.style.visibility = 'visible';
-            finalSection.offsetHeight;
-            
-            setTimeout(() => {
-                finalSection.style.opacity = '1';
-                console.log("✅ Final carregado");
-                finalSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                inicializarFinal();
-            }, 100);
-        }
-    }, 500);
-}
-
-function inicializarFinal() {
-    console.log("🎉 Inicializando final...");
-    
-    const btnFinal = document.getElementById('btn-final');
-    const confetes = document.querySelectorAll('.confete');
-    const floresFinais = document.querySelectorAll('.flor-final');
-    
-    if (btnFinal) {
-        btnFinal.addEventListener('click', function() {
-            this.style.transform = 'scale(0.95)';
-            
-            confetes.forEach(confete => {
-                confete.style.opacity = '1';
-            });
-            
-            setTimeout(() => {
-                alert("Obrigado por existir do seu jeito único. Guarde isso: você é amada e sua importância é real. Que este espaço reflita sempre o tanto que você significa para quem te conhece. ❤️");
-                
-                setTimeout(() => {
-                    confetes.forEach(confete => {
-                        confete.style.opacity = '0';
-                    });
-                }, 3000);
-            }, 1000);
-        });
-    }
-    
-    if (floresFinais.length > 0) {
-        setInterval(() => {
-            floresFinais.forEach(flor => {
-                flor.style.left = `${Math.random() * 100}%`;
-            });
-        }, 5000);
-    }
-}
-
-/* ==================== CORAÇÕES FLUTUANTES ==================== */
-
-function inicializarCoracoesFlutuantes() {
-    const container = document.querySelector('.coracoes-flutuantes');
-    if (!container) return;
-    
-    for (let i = 0; i < 15; i++) {
-        setTimeout(() => {
-            criarCoracaoFlutuante(container);
-        }, i * 300);
-    }
-}
-
-function criarCoracaoFlutuante(container) {
-    const coracao = document.createElement('div');
-    coracao.className = 'coracao-flutuante';
-    coracao.innerHTML = '❤️';
-    coracao.style.left = `${Math.random() * 100}%`;
-    coracao.style.fontSize = `${Math.random() * 20 + 10}px`;
-    coracao.style.opacity = `${Math.random() * 0.5 + 0.3}`;
-    
-    const duration = Math.random() * 10 + 10;
-    const delay = Math.random() * 5;
-    coracao.style.animation = `coracao-voar ${duration}s ${delay}s infinite linear`;
-    
-    container.appendChild(coracao);
-    
-    setTimeout(() => {
-        if (coracao.parentNode === container) {
-            container.removeChild(coracao);
-        }
-    }, (duration + delay) * 1000);
-}
-
-// Inicia corações flutuantes periodicamente
-setTimeout(inicializarCoracoesFlutuantes, 2000);
-setInterval(() => {
-    inicializarCoracoesFlutuantes();
-}, 15000);
-
-/* ==================== API PÚBLICA PARA SUBSTITUIR IMAGENS ==================== */
-
+// Expor função para substituir imagens
 window.substituirImagens = function(novasImagens) {
     if (novasImagens.momentos && Array.isArray(novasImagens.momentos)) {
-        configImagens.momentos = novasImagens.momentos;
+        CONFIG_IMAGENS.momentos = novasImagens.momentos;
     }
     
     if (novasImagens.gostos && Array.isArray(novasImagens.gostos)) {
-        configImagens.gostos = novasImagens.gostos;
+        CONFIG_IMAGENS.gostos = novasImagens.gostos;
     }
     
     if (novasImagens.joey) {
-        configImagens.joey = novasImagens.joey;
+        CONFIG_IMAGENS.joey = novasImagens.joey;
     }
     
     carregarImagens();
-    console.log("✅ Imagens substituídas com sucesso!");
+    console.log('✅ Imagens substituídas com sucesso!');
+    
+    mostrarToast('🎨 Imagens atualizadas!');
 };
 
-/* 
-Exemplo de uso (descomente para testar):
+// Expor função para definir data
+window.definirDataConhecimento = function(ano, mes, dia) {
+    const data = new Date(ano, mes - 1, dia);
+    APP_STATE.dataConhecimento = data;
+    localStorage.setItem('dataConhecimentoEspecial', data.getTime());
+    atualizarDataDisplay();
+    atualizarContadorTempo();
+    
+    mostrarToast('📅 Data atualizada!');
+};
 
-substituirImagens({
-    momentos: [
-        "URL_DA_FOTO_1",
-        "URL_DA_FOTO_2",
-        "URL_DA_FOTO_3",
-        "URL_DA_FOTO_4"
-    ],
-    gostos: [
-        "URL_SLIPKNOT",
-        "URL_GATO_PRETO",
-        "URL_JAZZ",
-        "URL_MORANGO",
-        "URL_DODGE",
-        "URL_VERMELHO"
-    ],
-    joey: "URL_JOEY"
-});
-*/
+// Expor função para pular para seção específica
+window.pularParaSecao = function(nomeSecao) {
+    const secoesValidas = ['boasVindas', 'player', 'carrossel', 'gostos', 'estatisticas', 'mensagens', 'roleta', 'final'];
+    
+    if (!secoesValidas.includes(nomeSecao)) {
+        console.error('❌ Seção inválida');
+        return;
+    }
+    
+    // Encontrar e mostrar a seção
+    const section = DOM.sections[nomeSecao];
+    if (section) {
+        // Esconder todas as seções primeiro
+        Object.values(DOM.sections).forEach(sec => {
+            if (sec && sec !== section) {
+                sec.classList.remove('active');
+                sec.style.opacity = '0';
+            }
+        });
+        
+        // Mostrar seção desejada
+        mostrarSecao(nomeSecao);
+    }
+};
+
+/* ===========================================================================
+   ANIMAÇÕES CSS DINÂMICAS
+   =========================================================================== */
+
+// Adicionar animações CSS dinamicamente
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    
+    @keyframes fadeOut {
+        from { opacity: 1; }
+        to { opacity: 0; }
+    }
+    
+    @keyframes pulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+    }
+    
+    .pulse {
+        animation: pulse 2s infinite;
+    }
+`;
+document.head.appendChild(style);
