@@ -1,99 +1,3 @@
-/* ====================================
-   CORREÇÃO DE BUGS PARA CELULAR
-   ==================================== */
-
-function corrigirCelular() {
-    console.log("📱 Aplicando correções para celular...");
-    
-    // Detecta se é celular
-    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-    
-    if (isMobile) {
-        console.log("📱 Dispositivo móvel detectado");
-        
-        // Correções CSS imediatas (APENAS ESSAS)
-        document.body.style.overflowX = 'hidden';
-        document.body.style.width = '100%';
-        
-        // NÃO mexa na tela de boas-vindas! Ela já é controlada por outras funções
-        // NÃO adicione display, visibility ou opacity aqui
-        
-        // APENAS garante que o botão TEM a classe CSS correta
-        const btnIniciar = document.getElementById('btn-iniciar');
-        if (btnIniciar) {
-            btnIniciar.classList.add('btn-iniciar-visible');
-        }
-    }
-}
-
-// Executa quando a página carrega
-document.addEventListener('DOMContentLoaded', function() {
-    // Chama a correção para celular
-    corrigirCelular();
-    
-    // Força a página para começar no topo
-    window.scrollTo(0, 0);
-    document.body.classList.add('start-at-top');
-    
-    // Remove classe quando a experiência começar
-    document.getElementById('btn-iniciar')?.addEventListener('click', function() {
-        document.body.classList.remove('start-at-top');
-        console.log("🚀 Botão 'Iniciar Experiência' clicado!");
-    });
-    
-    // Resto do seu código de inicialização...
-    inicializarParticlesJS();
-    carregarImagens();
-    iniciarContagemRegressiva();
-    inicializarCoracoesFlutuantes();
-    
-    console.log("🎁 Site carregado com correções para celular!");
-});
-
-// ==============================================
-// MÚSICA DE FUNDO - VERSÃO CORRIGIDA E SIMPLES
-// ==============================================
-
-// Aguarda o carregamento completo do DOM
-document.addEventListener('DOMContentLoaded', function() {
-    // Configura a música
-    const musica = document.getElementById('musicaFundo');
-    const btnMusica = document.getElementById('btnMusica');
-    
-    if (musica) {
-        // Configurações iniciais
-        musica.volume = 0.3;
-        musica.loop = true;
-        
-        console.log("🎵 Música configurada (volume: 0.3, loop: ativo)");
-        
-        // SOMENTE inicia a música quando o usuário clicar no botão específico
-        if (btnMusica) {
-            btnMusica.addEventListener('click', function(e) {
-                e.stopPropagation();
-                
-                if (musica.paused) {
-                    musica.play()
-                        .then(() => {
-                            console.log('🎵 Música iniciada pelo botão!');
-                            this.innerHTML = '<i class="fas fa-volume-up"></i>';
-                            this.style.background = 'rgba(255, 107, 149, 0.9)';
-                        })
-                        .catch(err => {
-                            console.log('❌ Erro ao iniciar música:', err);
-                        });
-                } else {
-                    musica.pause();
-                    this.innerHTML = '<i class="fas fa-volume-mute"></i>';
-                    this.style.background = 'rgba(100, 100, 100, 0.7)';
-                }
-            });
-        }
-    } else {
-        console.log("❌ Elemento de música não encontrado");
-    }
-});
-
 /* ==================== VARIÁVEIS GLOBAIS E CONFIGURAÇÕES ==================== */
 
 // Configurações de imagens (SUBSTITUA COM SUAS PRÓPRIAS IMAGENS)
@@ -119,84 +23,128 @@ const configImagens = {
 let backgroundMusic;
 let isPlaying = false;
 let dataConhecimento = new Date('2022-03-15');
+let currentSection = 'surpresa';
+let sections = ['surpresa', 'boas-vindas', 'player-spotify', 'carrossel-fotos', 'gostos', 'estatisticas', 'mensagens', 'roleta', 'final'];
 
 /* ==================== FUNÇÕES DE INICIALIZAÇÃO ==================== */
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Força a página para começar no topo
-    window.scrollTo(0, 0);
-    document.body.classList.add('start-at-top');
-    
-    // Remove classe quando a experiência começar
-    document.getElementById('btn-iniciar')?.addEventListener('click', function() {
-        document.body.classList.remove('start-at-top');
-    });
+    console.log("🎁 Iniciando experiência especial...");
     
     // Inicializa componentes
     inicializarParticlesJS();
     carregarImagens();
     iniciarContagemRegressiva();
     inicializarCoracoesFlutuantes();
+    inicializarMusica();
     
-    console.log("🎁 Site especial carregado com sucesso!");
-    console.log("💝 Pronto para começar a experiência!");
+    // Configura evento do botão de música
+    const btnMusica = document.getElementById('btnMusica');
+    if (btnMusica) {
+        btnMusica.addEventListener('click', toggleMusica);
+    }
+    
+    // Configura botão iniciar
+    const btnIniciar = document.getElementById('btn-iniciar');
+    if (btnIniciar) {
+        btnIniciar.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            console.log("🚀 Iniciando experiência...");
+            this.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                this.style.transform = 'scale(1)';
+                iniciarTransicao();
+            }, 300);
+        });
+    }
 });
+
+/* ==================== GERENCIAMENTO DE SEÇÕES ==================== */
+
+function showSection(sectionId) {
+    console.log(`🔄 Mostrando seção: ${sectionId}`);
+    
+    // Esconde todas as seções
+    sections.forEach(id => {
+        const section = document.getElementById(id);
+        if (section) {
+            section.classList.remove('active');
+            section.style.display = 'none';
+        }
+    });
+    
+    // Mostra a seção atual
+    const current = document.getElementById(sectionId);
+    if (current) {
+        current.classList.add('active');
+        current.style.display = 'flex';
+        current.style.opacity = '0';
+        
+        setTimeout(() => {
+            current.style.opacity = '1';
+        }, 50);
+        
+        currentSection = sectionId;
+        
+        // Rolagem suave para o topo
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+        
+        // Remove o bloqueio de scroll
+        document.body.classList.remove('no-scroll');
+    }
+}
+
+function hideSection(sectionId) {
+    const section = document.getElementById(sectionId);
+    if (section) {
+        section.classList.remove('active');
+        section.style.opacity = '0';
+        
+        setTimeout(() => {
+            section.style.display = 'none';
+        }, 500);
+    }
+}
 
 /* ==================== PARTICLES.JS ==================== */
 
 function inicializarParticlesJS() {
-    particlesJS("particles-js", {
-        particles: {
-            number: {
-                value: 60,
-                density: {
+    if (typeof particlesJS !== 'undefined') {
+        particlesJS("particles-js", {
+            particles: {
+                number: { value: 40 },
+                color: { value: "#ff6b6b" },
+                shape: { type: "circle" },
+                opacity: { value: 0.3, random: true },
+                size: { value: 2, random: true },
+                line_linked: {
+                    enable: false
+                },
+                move: {
                     enable: true,
-                    value_area: 800
+                    speed: 1,
+                    direction: "none",
+                    random: true,
+                    straight: false,
+                    out_mode: "out",
+                    bounce: false
                 }
             },
-            color: { value: "#ff6b6b" },
-            shape: { type: "circle" },
-            opacity: {
-                value: 0.5,
-                random: true
+            interactivity: {
+                detect_on: "canvas",
+                events: {
+                    onhover: { enable: false },
+                    onclick: { enable: false },
+                    resize: true
+                }
             },
-            size: {
-                value: 3,
-                random: true
-            },
-            line_linked: {
-                enable: true,
-                distance: 150,
-                color: "#ff6b6b",
-                opacity: 0.2,
-                width: 1
-            },
-            move: {
-                enable: true,
-                speed: 2,
-                direction: "none",
-                random: true,
-                straight: false,
-                out_mode: "out",
-                bounce: false
-            }
-        },
-        interactivity: {
-            detect_on: "canvas",
-            events: {
-                onhover: {
-                    enable: true,
-                    mode: "repulse"
-                },
-                onclick: {
-                    enable: true,
-                    mode: "push"
-                },
-                resize: true
-            }
-        },
-        retina_detect: true
-    });
+            retina_detect: true
+        });
+    }
 }
 
 /* ==================== GERENCIAMENTO DE IMAGENS ==================== */
@@ -207,6 +155,8 @@ function carregarImagens() {
         const imgElement = document.getElementById(`slide-image-${i+1}`);
         if (imgElement) {
             imgElement.style.backgroundImage = `url('${configImagens.momentos[i]}')`;
+            imgElement.style.backgroundSize = 'cover';
+            imgElement.style.backgroundPosition = 'center';
         }
     }
     
@@ -215,6 +165,8 @@ function carregarImagens() {
         const cardElement = document.getElementById(`gosto-${i+1}`);
         if (cardElement) {
             cardElement.style.backgroundImage = `url('${configImagens.gostos[i]}')`;
+            cardElement.style.backgroundSize = 'cover';
+            cardElement.style.backgroundPosition = 'center';
         }
     }
     
@@ -222,13 +174,14 @@ function carregarImagens() {
     const joeyImage = document.getElementById('joey-image');
     if (joeyImage && configImagens.joey) {
         joeyImage.style.backgroundImage = `url('${configImagens.joey}')`;
+        joeyImage.style.backgroundSize = 'cover';
+        joeyImage.style.backgroundPosition = 'center';
     }
 }
 
 /* ==================== CONTAGEM REGRESSIVA INICIAL ==================== */
 
 function iniciarContagemRegressiva() {
-    const surpresaSection = document.getElementById('surpresa');
     const contadorElement = document.getElementById('contador');
     let contador = 3;
     
@@ -244,451 +197,209 @@ function iniciarContagemRegressiva() {
         
         if (contador <= 0) {
             clearInterval(intervaloContador);
-            mostrarTelaBoasVindas();
+            showSection('boas-vindas');
+            hideSection('surpresa');
         }
     }, 1000);
 }
 
-/* ==================== TRANSIÇÕES DE TELA ==================== */
-
-function mostrarTelaBoasVindas() {
-    console.log("🔄 Mostrando tela de boas-vindas...");
-    
-    const surpresaSection = document.getElementById('surpresa');
-    surpresaSection.style.opacity = '0';
-    surpresaSection.style.transition = 'opacity 1s ease';
-    
-    setTimeout(() => {
-        surpresaSection.style.display = 'none';
-        const boasVindasSection = document.getElementById('boas-vindas');
-        boasVindasSection.style.display = 'flex';
-        
-        setTimeout(() => {
-            boasVindasSection.style.opacity = '1';
-            iniciarEfeitosBoasVindas();
-        }, 50);
-    }, 1000);
-}
+/* ==================== TRANSIÇÕES ==================== */
 
 function iniciarTransicao() {
     console.log("✨ Iniciando transição...");
     
-    const boasVindasSection = document.getElementById('boas-vindas');
-    boasVindasSection.style.opacity = '0';
-    boasVindasSection.style.transition = 'opacity 0.5s ease';
-    
+    // Mostra a transição
     const transicaoSection = document.getElementById('transicao');
-    transicaoSection.style.display = 'flex';
-    
-    setTimeout(() => {
-        transicaoSection.style.opacity = '1';
+    if (transicaoSection) {
+        transicaoSection.style.display = 'flex';
+        transicaoSection.classList.add('show');
+        
+        // Cria partículas na transição
         criarParticulasTransicao();
         
+        // Esconde a seção atual
+        hideSection('boas-vindas');
+        
+        // Aguarda e mostra o player de música
         setTimeout(() => {
-            mostrarPlayerMusica();
+            transicaoSection.classList.remove('show');
+            transicaoSection.style.display = 'none';
+            
+            showSection('player-spotify');
+            setupSimpleMusicPlayer();
+            
+            // Auto-avança depois de alguns segundos
+            setTimeout(() => {
+                mostrarCarrosselFotos();
+            }, 8000);
         }, 3000);
-    }, 500);
-}
-
-function iniciarEfeitosBoasVindas() {
-    console.log("🎉 Iniciando efeitos de boas-vindas...");
-    
-    // VERIFICA se o botão existe
-    const btnIniciar = document.getElementById('btn-iniciar');
-    
-    if (!btnIniciar) {
-        console.error("❌ BOTÃO 'btn-iniciar' NÃO ENCONTRADO!");
-        // Cria o botão se não existir (fallback)
-        criarBotaoFallback();
-        return;
     }
-    
-    console.log("✅ Botão encontrado, configurando...");
-    
-    // Configura o botão
-    btnIniciar.addEventListener('click', function() {
-        console.log("🚀 Iniciando experiência...");
-        
-        // Efeito visual
-        this.style.transform = 'scale(0.95)';
-        
-        // Log para debug
-        console.log("📱 Dispositivo:", navigator.userAgent);
-        console.log("🖥️ Largura da tela:", window.innerWidth);
-        
-        setTimeout(() => {
-            iniciarTransicao();
-        }, 300);
-    });
-    
-    // Efeitos nos elementos interativos (se existirem)
-    const elementosInterativos = document.querySelectorAll('.elemento-interativo');
-    if (elementosInterativos.length > 0) {
-        elementosInterativos.forEach(elemento => {
-            elemento.addEventListener('click', function() {
-                this.style.transform = 'scale(0.9)';
-                setTimeout(() => {
-                    this.style.transform = 'scale(1)';
-                }, 200);
-                
-                const nota = this.getAttribute('data-note');
-                tocarNota(nota);
-            });
-        });
-    }
-}
-
-// Fallback caso o botão não exista
-function criarBotaoFallback() {
-    console.log("⚠️ Criando botão fallback...");
-    
-    const container = document.querySelector('.boas-vindas-container');
-    if (!container) return;
-    
-    const botaoFallback = document.createElement('button');
-    botaoFallback.id = 'btn-iniciar-fallback';
-    botaoFallback.innerHTML = '<span>Iniciar a Experiência</span>';
-    botaoFallback.className = 'btn-iniciar';
-    botaoFallback.style.cssText = `
-        background: linear-gradient(45deg, #6a11cb, #2575fc);
-        border: none;
-        color: white;
-        font-size: 1.3rem;
-        padding: 18px 45px;
-        border-radius: 50px;
-        cursor: pointer;
-        margin-top: 30px;
-        font-weight: 600;
-        display: block !important;
-        visibility: visible !important;
-    `;
-    
-    botaoFallback.addEventListener('click', function() {
-        console.log("🚀 Fallback: Iniciando experiência...");
-        iniciarTransicao();
-    });
-    
-    container.appendChild(botaoFallback);
 }
 
 function criarParticulasTransicao() {
     const particulasContainer = document.querySelector('.particulas-transicao');
+    if (!particulasContainer) return;
     
-    for (let i = 0; i < 30; i++) {
+    // Limpa partículas antigas
+    particulasContainer.innerHTML = '';
+    
+    for (let i = 0; i < 20; i++) {
         const particula = document.createElement('div');
-        particula.style.position = 'absolute';
-        particula.style.width = `${Math.random() * 10 + 5}px`;
-        particula.style.height = particula.style.width;
-        particula.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 70%)`;
-        particula.style.borderRadius = '50%';
-        particula.style.left = `${Math.random() * 100}%`;
-        particula.style.top = `${Math.random() * 100}%`;
-        particula.style.opacity = '0.7';
-        particula.style.animation = `float ${Math.random() * 3 + 2}s infinite ease-in-out`;
+        particula.style.cssText = `
+            position: absolute;
+            width: ${Math.random() * 10 + 5}px;
+            height: ${Math.random() * 10 + 5}px;
+            background-color: hsl(${Math.random() * 360}, 100%, 70%);
+            border-radius: 50%;
+            left: ${Math.random() * 100}%;
+            top: ${Math.random() * 100}%;
+            opacity: 0.7;
+            animation: float ${Math.random() * 3 + 2}s infinite ease-in-out;
+        `;
         
         particulasContainer.appendChild(particula);
     }
 }
 
-/* ==================== PLAYER DE MÚSICA ==================== */
+/* ==================== MÚSICA ==================== */
 
-function mostrarPlayerMusica() {
-    console.log("🎵 Mostrando player de música...");
-    
-    const transicaoSection = document.getElementById('transicao');
-    transicaoSection.style.opacity = '0';
-    transicaoSection.style.transition = 'opacity 0.5s ease';
-    
-    setTimeout(() => {
-        transicaoSection.style.display = 'none';
-        const playerSection = document.getElementById('player-spotify');
-        playerSection.style.display = 'flex';
-        
-        setTimeout(() => {
-            playerSection.style.opacity = '1';
-            setupSimpleMusicPlayer();
-            
-            setTimeout(() => {
-                mostrarCarrosselFotos();
-            }, 8000);
-        }, 50);
-    }, 500);
+function inicializarMusica() {
+    const musica = document.getElementById('musicaFundo');
+    if (musica) {
+        musica.volume = 0.3;
+        musica.loop = true;
+        console.log("🎵 Música configurada");
+    }
 }
 
+function toggleMusica() {
+    const musica = document.getElementById('musicaFundo');
+    const btnMusica = document.getElementById('btnMusica');
+    
+    if (!musica) return;
+    
+    if (musica.paused) {
+        musica.play().then(() => {
+            console.log('🎵 Música iniciada');
+            btnMusica.innerHTML = '<i class="fas fa-volume-up"></i>';
+            btnMusica.style.background = 'rgba(255, 107, 149, 0.9)';
+        }).catch(err => {
+            console.log('❌ Erro ao iniciar música:', err);
+        });
+    } else {
+        musica.pause();
+        btnMusica.innerHTML = '<i class="fas fa-volume-mute"></i>';
+        btnMusica.style.background = 'rgba(100, 100, 100, 0.7)';
+    }
+}
+
+/* ==================== PLAYER DE MÚSICA ==================== */
+
 function setupSimpleMusicPlayer() {
-    console.log("🎵 Configurando player de música simples...");
-    
-    backgroundMusic = new Audio();
-    backgroundMusic.loop = true;
-    backgroundMusic.volume = 0.3;
-    
-    // CAMINHO CORRETO PARA SUA ESTRUTURA
-    const musicFile = 'musica1.mp3'; // ← ARQUIVO NA MESMA PASTA QUE index.html
-    
-    backgroundMusic.src = musicFile;
-    console.log("🎶 Carregando sua música:", musicFile);
-    console.log("📁 Caminho atual:", window.location.href);
+    console.log("🎵 Configurando player de música...");
     
     // Configura controles
     const playBtn = document.getElementById('play-music');
     const pauseBtn = document.getElementById('pause-music');
     const nextBtn = document.getElementById('next-music');
     const volumeSlider = document.getElementById('volume-slider');
+    const musica = document.getElementById('musicaFundo');
     
-    if (playBtn) {
-        playBtn.addEventListener('click', () => playMusic());
-    }
-    
-    if (pauseBtn) {
-        pauseBtn.addEventListener('click', () => pauseMusic());
-    }
-    
-    // No seu caso, o botão "next" deve apenas reiniciar a música
-    if (nextBtn) {
-        nextBtn.addEventListener('click', () => {
-            if (backgroundMusic) {
-                backgroundMusic.currentTime = 0;
-                if (!isPlaying) {
-                    playMusic();
-                }
-            }
+    if (playBtn && musica) {
+        playBtn.addEventListener('click', () => {
+            musica.play().then(() => {
+                playBtn.style.display = 'none';
+                if (pauseBtn) pauseBtn.style.display = 'flex';
+                
+                const vinyl = document.querySelector('.vinyl-record');
+                if (vinyl) vinyl.style.animationPlayState = 'running';
+            });
         });
     }
     
-    if (volumeSlider) {
-        volumeSlider.addEventListener('input', (e) => {
-            const volume = e.target.value / 100;
-            if (backgroundMusic) {
-                backgroundMusic.volume = volume;
-                console.log("🔊 Volume ajustado para:", volume);
-            }
-        });
-        
-        // Define volume inicial
-        backgroundMusic.volume = volumeSlider.value / 100;
-    }
-    
-    // Configura animação do vinil
-    const vinyl = document.querySelector('.vinyl-record');
-    if (vinyl) {
-        vinyl.style.animationPlayState = 'paused';
-    }
-    
-    // Remove qualquer autoplay automático
-    // A música só tocará quando o usuário clicar em "Play"
-}
-
-function playMusic() {
-    if (!backgroundMusic) {
-        console.log("❌ Player de música não inicializado");
-        showMusicError("Player de música não inicializado");
-        return;
-    }
-    
-    // Verifica se a música foi carregada
-    if (backgroundMusic.error) {
-        console.log("❌ Erro na fonte de áudio");
-        showMusicError("Erro ao carregar a música. Verifique o arquivo.");
-        return;
-    }
-    
-    backgroundMusic.play()
-        .then(() => {
-            isPlaying = true;
-            console.log("✅ Sua música está tocando!");
+    if (pauseBtn && musica) {
+        pauseBtn.addEventListener('click', () => {
+            musica.pause();
+            pauseBtn.style.display = 'none';
+            if (playBtn) playBtn.style.display = 'flex';
             
             const vinyl = document.querySelector('.vinyl-record');
-            if (vinyl) {
-                vinyl.style.animationPlayState = 'running';
-            }
-            
-            updatePlayButton(true);
-        })
-        .catch(e => {
-            console.log("❌ Erro ao tocar música:", e.name, e.message);
-            
-            if (e.name === 'NotAllowedError') {
-                showMusicPermissionMessage();
-            } else {
-                showMusicError("Não foi possível tocar a música: " + e.message);
-            }
+            if (vinyl) vinyl.style.animationPlayState = 'paused';
         });
-}
-
-function pauseMusic() {
-    if (!backgroundMusic) return;
-    
-    backgroundMusic.pause();
-    isPlaying = false;
-    console.log("⏸️ Música pausada");
-    
-    const vinyl = document.querySelector('.vinyl-record');
-    if (vinyl) {
-        vinyl.style.animationPlayState = 'paused';
     }
     
-    updatePlayButton(false);
-}
-
-function showMusicError(message) {
-    const errorDiv = document.createElement('div');
-    errorDiv.style.cssText = `
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        background: #ff4444;
-        color: white;
-        padding: 15px;
-        border-radius: 10px;
-        z-index: 10000;
-        max-width: 300px;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-        animation: fadeIn 0.5s;
-    `;
-    errorDiv.innerHTML = `
-        <strong>⚠️ Problema com a Música</strong>
-        <p style="margin: 5px 0; font-size: 0.9em;">${message}</p>
-        <p style="margin: 5px 0; font-size: 0.8em;">Verifique se o arquivo "musica1.mp3" está na pasta "musicas"</p>
-    `;
+    if (nextBtn && musica) {
+        nextBtn.addEventListener('click', () => {
+            musica.currentTime = 0;
+            if (musica.paused) {
+                musica.play();
+                if (playBtn) playBtn.style.display = 'none';
+                if (pauseBtn) pauseBtn.style.display = 'flex';
+                
+                const vinyl = document.querySelector('.vinyl-record');
+                if (vinyl) vinyl.style.animationPlayState = 'running';
+            }
+        });
+    }
     
-    document.body.appendChild(errorDiv);
-    
-    setTimeout(() => {
-        errorDiv.style.animation = 'fadeOut 0.5s';
-        setTimeout(() => errorDiv.remove(), 500);
-    }, 5000);
-}
-
-function showMusicPermissionMessage() {
-    const message = document.createElement('div');
-    message.style.cssText = `
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        background: #ff6b6b;
-        color: white;
-        padding: 15px;
-        border-radius: 10px;
-        z-index: 10000;
-        max-width: 300px;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-        animation: fadeIn 0.5s;
-    `;
-    message.innerHTML = `
-        <strong>🎵 Permissão necessária</strong>
-        <p>Clique no botão "Play" para ativar a música de fundo!</p>
-    `;
-    
-    document.body.appendChild(message);
-    
-    setTimeout(() => {
-        message.style.animation = 'fadeOut 0.5s';
-        setTimeout(() => message.remove(), 500);
-    }, 5000);
-}
-
-function updatePlayButton(playing) {
-    const playBtn = document.getElementById('play-music');
-    const pauseBtn = document.getElementById('pause-music');
-    
-    if (playing) {
-        if (playBtn) playBtn.style.display = 'none';
-        if (pauseBtn) pauseBtn.style.display = 'flex';
-    } else {
-        if (playBtn) playBtn.style.display = 'flex';
-        if (pauseBtn) pauseBtn.style.display = 'none';
+    if (volumeSlider && musica) {
+        volumeSlider.addEventListener('input', (e) => {
+            musica.volume = e.target.value / 100;
+        });
     }
 }
 
 /* ==================== CARROSSEL DE FOTOS ==================== */
 
 function mostrarCarrosselFotos() {
-    console.log("📸 Mostrando carrossel de fotos...");
+    hideSection('player-spotify');
+    showSection('carrossel-fotos');
+    inicializarCarrossel();
     
-    const playerSection = document.getElementById('player-spotify');
-    playerSection.style.opacity = '0';
-    playerSection.style.transition = 'opacity 0.5s ease';
-    
+    // Auto-avança para próxima seção
     setTimeout(() => {
-        playerSection.style.display = 'none';
-        const carrosselSection = document.getElementById('carrossel-fotos');
-        carrosselSection.style.display = 'flex';
-        
-        setTimeout(() => {
-            carrosselSection.style.opacity = '1';
-            inicializarCarrossel();
-        }, 50);
-    }, 500);
+        mostrarGostos();
+    }, 12000);
 }
 
 function inicializarCarrossel() {
-    console.log("🔄 Inicializando carrossel...");
-    
     const track = document.querySelector('.carrossel-track');
     const slides = document.querySelectorAll('.carrossel-slide');
     const dots = document.querySelectorAll('.dot');
     const prevBtn = document.querySelector('.carrossel-btn.prev-btn');
     const nextBtn = document.querySelector('.carrossel-btn.next-btn');
     let slideAtual = 0;
+    let intervaloCarrossel;
     
-    if (!track || !slides.length) {
-        console.error("❌ Elementos do carrossel não encontrados!");
-        return;
-    }
+    if (!track || !slides.length) return;
     
     function atualizarCarrossel() {
         track.style.transform = `translateX(-${slideAtual * 100}%)`;
         
-        // Atualizar slides ativos
         slides.forEach((slide, index) => {
             slide.classList.toggle('active', index === slideAtual);
         });
         
-        // Atualizar dots
         dots.forEach((dot, index) => {
             dot.classList.toggle('active', index === slideAtual);
         });
-        
-        console.log(`📸 Slide atual: ${slideAtual + 1}/${slides.length}`);
     }
     
-    // Função para próximo slide
     function proximoSlide() {
         slideAtual = (slideAtual + 1) % slides.length;
         atualizarCarrossel();
     }
     
-    // Função para slide anterior
     function slideAnterior() {
         slideAtual = (slideAtual - 1 + slides.length) % slides.length;
         atualizarCarrossel();
     }
     
-    // Configurar botão NEXT
-    if (nextBtn) {
-        nextBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            console.log("👉 Botão próximo clicado");
-            proximoSlide();
-        });
-    } else {
-        console.error("❌ Botão next não encontrado!");
-    }
+    // Botões
+    if (nextBtn) nextBtn.addEventListener('click', proximoSlide);
+    if (prevBtn) prevBtn.addEventListener('click', slideAnterior);
     
-    // Configurar botão PREV (AGORA FUNCIONANDO)
-    if (prevBtn) {
-        prevBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            console.log("👈 Botão anterior clicado");
-            slideAnterior();
-        });
-    } else {
-        console.error("❌ Botão prev não encontrado!");
-    }
-    
-    // Configurar dots
+    // Dots
     dots.forEach((dot, index) => {
         dot.addEventListener('click', () => {
             slideAtual = index;
@@ -697,82 +408,38 @@ function inicializarCarrossel() {
     });
     
     // Auto-play
-    let intervaloCarrossel = setInterval(() => {
-        proximoSlide();
-    }, 5000);
+    intervaloCarrossel = setInterval(proximoSlide, 5000);
     
     // Pausar auto-play ao interagir
     const carrosselContainer = document.querySelector('.carrossel-container');
     if (carrosselContainer) {
         carrosselContainer.addEventListener('mouseenter', () => {
             clearInterval(intervaloCarrossel);
-            console.log("⏸️ Auto-play pausado");
         });
         
         carrosselContainer.addEventListener('mouseleave', () => {
-            intervaloCarrossel = setInterval(() => {
-                proximoSlide();
-            }, 5000);
-            console.log("▶️ Auto-play retomado");
+            intervaloCarrossel = setInterval(proximoSlide, 5000);
         });
     }
     
-    // Adicionar navegação por touch/swipe
-    let startX = 0;
-    let endX = 0;
-    
-    if (track) {
-        track.addEventListener('touchstart', (e) => {
-            startX = e.touches[0].clientX;
-        }, { passive: true });
-        
-        track.addEventListener('touchend', (e) => {
-            endX = e.changedTouches[0].clientX;
-            const diff = startX - endX;
-            
-            if (Math.abs(diff) > 50) { // Limite de swipe
-                if (diff > 0) {
-                    proximoSlide(); // Swipe para esquerda
-                } else {
-                    slideAnterior(); // Swipe para direita
-                }
-            }
-        }, { passive: true });
-    }
-    
-    // Inicializar primeiro slide
+    // Inicializar
     atualizarCarrossel();
-    
-    setTimeout(() => {
-        mostrarGostos();
-    }, 12000);
 }
 
 /* ==================== SEÇÃO DE GOSTOS ==================== */
 
 function mostrarGostos() {
-    console.log("❤️ Mostrando seção de gostos...");
-    
-    const carrosselSection = document.getElementById('carrossel-fotos');
-    carrosselSection.style.opacity = '0';
-    carrosselSection.style.transition = 'opacity 0.5s ease';
+    hideSection('carrossel-fotos');
+    showSection('gostos');
+    inicializarGostos();
     
     setTimeout(() => {
-        carrosselSection.style.display = 'none';
-        const gostosSection = document.getElementById('gostos');
-        gostosSection.style.display = 'flex';
-        
-        setTimeout(() => {
-            gostosSection.style.opacity = '1';
-            inicializarGostos();
-        }, 50);
-    }, 500);
+        mostrarEstatisticas();
+    }, 15000);
 }
 
 function inicializarGostos() {
-    console.log("🎸 Inicializando seção de gostos...");
-    
-    // Modal do Joey Jordison
+    // Modal do Joey
     const btnJoey = document.getElementById('btn-joey');
     const modalJoey = document.getElementById('joey-modal');
     const closeModal = document.querySelector('.close-modal');
@@ -791,7 +458,7 @@ function inicializarGostos() {
             modalJoey.style.opacity = '0';
             setTimeout(() => {
                 modalJoey.style.display = 'none';
-            }, 500);
+            }, 300);
         });
     }
     
@@ -801,47 +468,32 @@ function inicializarGostos() {
                 modalJoey.style.opacity = '0';
                 setTimeout(() => {
                     modalJoey.style.display = 'none';
-                }, 500);
+                }, 300);
             }
         });
     }
-    
-    setTimeout(() => {
-        mostrarEstatisticas();
-    }, 15000);
 }
 
-/* ==================== ESTATÍSTICAS DO TEMPO ==================== */
+/* ==================== ESTATÍSTICAS ==================== */
 
 function mostrarEstatisticas() {
-    console.log("📊 Mostrando estatísticas...");
-    
-    const gostosSection = document.getElementById('gostos');
-    gostosSection.style.opacity = '0';
-    gostosSection.style.transition = 'opacity 0.5s ease';
+    hideSection('gostos');
+    showSection('estatisticas');
+    inicializarEstatisticas();
     
     setTimeout(() => {
-        gostosSection.style.display = 'none';
-        const estatisticasSection = document.getElementById('estatisticas');
-        estatisticasSection.style.display = 'flex';
-        
-        setTimeout(() => {
-            estatisticasSection.style.opacity = '1';
-            inicializarEstatisticas();
-        }, 50);
-    }, 500);
+        mostrarMensagens();
+    }, 12000);
 }
 
 function inicializarEstatisticas() {
-    console.log("⏰ Inicializando estatísticas...");
-    
     const dataDisplay = document.getElementById('data-conhecimento');
     const diaInput = document.getElementById('dia-input');
     const mesInput = document.getElementById('mes-input');
     const anoInput = document.getElementById('ano-input');
     const salvarDataBtn = document.getElementById('salvar-data');
     
-    // Tenta carregar data salva
+    // Carrega data salva
     const dataSalva = localStorage.getItem('dataConhecimento');
     if (dataSalva) {
         dataConhecimento = new Date(parseInt(dataSalva));
@@ -860,15 +512,13 @@ function inicializarEstatisticas() {
             const mes = parseInt(mesInput.value) || 3;
             const ano = parseInt(anoInput.value) || 2022;
             
-            if (dia < 1 || dia > 31 || mes < 1 || mes > 12 || ano < 2000 || ano > new Date().getFullYear()) {
-                alert("Por favor, insira uma data válida!");
-                return;
-            }
-            
             dataConhecimento = new Date(ano, mes - 1, dia);
             localStorage.setItem('dataConhecimento', dataConhecimento.getTime());
             
-            atualizarDataDisplay();
+            if (dataDisplay) {
+                const options = { year: 'numeric', month: 'long', day: 'numeric' };
+                dataDisplay.textContent = dataConhecimento.toLocaleDateString('pt-BR', options);
+            }
             
             this.textContent = "Data Salva!";
             this.style.background = "linear-gradient(45deg, #1DB954, #1ed760)";
@@ -880,15 +530,7 @@ function inicializarEstatisticas() {
         });
     }
     
-    function atualizarDataDisplay() {
-        if (dataDisplay) {
-            const options = { year: 'numeric', month: 'long', day: 'numeric' };
-            dataDisplay.textContent = dataConhecimento.toLocaleDateString('pt-BR', options);
-        }
-    }
-    
-    atualizarDataDisplay();
-    
+    // Atualizar contador
     function atualizarContador() {
         const agora = new Date();
         const diferenca = agora - dataConhecimento;
@@ -902,66 +544,17 @@ function inicializarEstatisticas() {
         document.getElementById('meses').textContent = meses;
         document.getElementById('dias').textContent = dias;
         document.getElementById('horas').textContent = horas;
-        
-        const contadores = document.querySelectorAll('.contador-valor');
-        contadores.forEach(contador => {
-            contador.style.transform = 'scale(1.1)';
-            setTimeout(() => {
-                contador.style.transform = 'scale(1)';
-            }, 200);
-        });
     }
     
     atualizarContador();
     setInterval(atualizarContador, 1000);
-    
-    setTimeout(() => {
-        mostrarMensagens();
-    }, 12000);
 }
 
-/* ==================== MENSAGENS BONITAS ==================== */
+/* ==================== MENSAGENS ==================== */
 
 function mostrarMensagens() {
-    console.log("💌 Mostrando mensagens...");
-    
-    const estatisticasSection = document.getElementById('estatisticas');
-    estatisticasSection.style.opacity = '0';
-    estatisticasSection.style.transition = 'opacity 0.5s ease';
-    
-    setTimeout(() => {
-        estatisticasSection.style.display = 'none';
-        const mensagensSection = document.getElementById('mensagens');
-        mensagensSection.style.display = 'flex';
-        
-        setTimeout(() => {
-            mensagensSection.style.opacity = '1';
-            inicializarMensagens();
-        }, 50);
-    }, 500);
-}
-
-function inicializarMensagens() {
-    console.log("✨ Inicializando mensagens...");
-    
-    const mensagemCards = document.querySelectorAll('.mensagem-card');
-    mensagemCards.forEach(card => {
-        card.addEventListener('mouseenter', function() {
-            const efeito = this.querySelector('.efeito-flutuante');
-            if (efeito) {
-                efeito.style.transform = 'scale(1.5)';
-                efeito.style.opacity = '0.3';
-            }
-        });
-        
-        card.addEventListener('mouseleave', function() {
-            const efeito = this.querySelector('.efeito-flutuante');
-            if (efeito) {
-                efeito.style.transform = 'scale(1)';
-                efeito.style.opacity = '0.1';
-            }
-        });
-    });
+    hideSection('estatisticas');
+    showSection('mensagens');
     
     setTimeout(() => {
         mostrarRoleta();
@@ -971,38 +564,12 @@ function inicializarMensagens() {
 /* ==================== ROLETA ==================== */
 
 function mostrarRoleta() {
-    console.log("🎡 Mostrando roleta...");
-    
-    const mensagensSection = document.getElementById('mensagens');
-    if (mensagensSection) {
-        mensagensSection.style.opacity = '0';
-        mensagensSection.style.transition = 'opacity 0.5s ease';
-    }
-    
-    setTimeout(() => {
-        if (mensagensSection) {
-            mensagensSection.style.display = 'none';
-        }
-        
-        const roletaSection = document.getElementById('roleta');
-        if (roletaSection) {
-            roletaSection.style.display = 'flex';
-            roletaSection.style.visibility = 'visible';
-            roletaSection.offsetHeight;
-            
-            setTimeout(() => {
-                roletaSection.style.opacity = '1';
-                console.log("✅ Roleta carregada");
-                roletaSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                inicializarRoleta();
-            }, 100);
-        }
-    }, 500);
+    hideSection('mensagens');
+    showSection('roleta');
+    inicializarRoleta();
 }
 
 function inicializarRoleta() {
-    console.log("🔄 Inicializando roleta...");
-    
     const roleta = document.getElementById('roleta');
     const btnGirar = document.getElementById('girar-roleta');
     const resultadoRoleta = document.getElementById('resultado-roleta');
@@ -1025,7 +592,6 @@ function inicializarRoleta() {
             
             estaGirando = true;
             this.disabled = true;
-            this.style.opacity = '0.7';
             
             const giros = 5 + Math.random() * 3;
             const anguloFinal = giros * 360 + Math.floor(Math.random() * 360);
@@ -1050,7 +616,6 @@ function inicializarRoleta() {
                 
                 estaGirando = false;
                 btnGirar.disabled = false;
-                btnGirar.style.opacity = '1';
                 
                 setTimeout(() => {
                     mostrarFinal();
@@ -1063,41 +628,14 @@ function inicializarRoleta() {
 /* ==================== SEÇÃO FINAL ==================== */
 
 function mostrarFinal() {
-    console.log("🌟 Mostrando final...");
-    
-    const roletaSection = document.getElementById('roleta');
-    if (roletaSection) {
-        roletaSection.style.opacity = '0';
-        roletaSection.style.transition = 'opacity 0.5s ease';
-    }
-    
-    setTimeout(() => {
-        if (roletaSection) {
-            roletaSection.style.display = 'none';
-        }
-        
-        const finalSection = document.getElementById('final');
-        if (finalSection) {
-            finalSection.style.display = 'flex';
-            finalSection.style.visibility = 'visible';
-            finalSection.offsetHeight;
-            
-            setTimeout(() => {
-                finalSection.style.opacity = '1';
-                console.log("✅ Final carregado");
-                finalSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                inicializarFinal();
-            }, 100);
-        }
-    }, 500);
+    hideSection('roleta');
+    showSection('final');
+    inicializarFinal();
 }
 
 function inicializarFinal() {
-    console.log("🎉 Inicializando final...");
-    
     const btnFinal = document.getElementById('btn-final');
     const confetes = document.querySelectorAll('.confete');
-    const floresFinais = document.querySelectorAll('.flor-final');
     
     if (btnFinal) {
         btnFinal.addEventListener('click', function() {
@@ -1116,15 +654,11 @@ function inicializarFinal() {
                     });
                 }, 3000);
             }, 1000);
+            
+            setTimeout(() => {
+                this.style.transform = 'scale(1)';
+            }, 200);
         });
-    }
-    
-    if (floresFinais.length > 0) {
-        setInterval(() => {
-            floresFinais.forEach(flor => {
-                flor.style.left = `${Math.random() * 100}%`;
-            });
-        }, 5000);
     }
 }
 
@@ -1134,39 +668,35 @@ function inicializarCoracoesFlutuantes() {
     const container = document.querySelector('.coracoes-flutuantes');
     if (!container) return;
     
-    for (let i = 0; i < 15; i++) {
+    function criarCoracao() {
+        const coracao = document.createElement('div');
+        coracao.className = 'coracao-flutuante';
+        coracao.innerHTML = '❤️';
+        coracao.style.left = `${Math.random() * 100}%`;
+        coracao.style.fontSize = `${Math.random() * 20 + 10}px`;
+        coracao.style.opacity = `${Math.random() * 0.5 + 0.3}`;
+        
+        const duration = Math.random() * 10 + 10;
+        const delay = Math.random() * 5;
+        coracao.style.animation = `coracao-voar ${duration}s ${delay}s infinite linear`;
+        
+        container.appendChild(coracao);
+        
         setTimeout(() => {
-            criarCoracaoFlutuante(container);
-        }, i * 300);
+            if (coracao.parentNode === container) {
+                container.removeChild(coracao);
+            }
+        }, (duration + delay) * 1000);
     }
+    
+    // Cria alguns corações iniciais
+    for (let i = 0; i < 10; i++) {
+        setTimeout(criarCoracao, i * 300);
+    }
+    
+    // Cria corações periodicamente
+    setInterval(criarCoracao, 3000);
 }
-
-function criarCoracaoFlutuante(container) {
-    const coracao = document.createElement('div');
-    coracao.className = 'coracao-flutuante';
-    coracao.innerHTML = '❤️';
-    coracao.style.left = `${Math.random() * 100}%`;
-    coracao.style.fontSize = `${Math.random() * 20 + 10}px`;
-    coracao.style.opacity = `${Math.random() * 0.5 + 0.3}`;
-    
-    const duration = Math.random() * 10 + 10;
-    const delay = Math.random() * 5;
-    coracao.style.animation = `coracao-voar ${duration}s ${delay}s infinite linear`;
-    
-    container.appendChild(coracao);
-    
-    setTimeout(() => {
-        if (coracao.parentNode === container) {
-            container.removeChild(coracao);
-        }
-    }, (duration + delay) * 1000);
-}
-
-// Inicia corações flutuantes periodicamente
-setTimeout(inicializarCoracoesFlutuantes, 2000);
-setInterval(() => {
-    inicializarCoracoesFlutuantes();
-}, 15000);
 
 /* ==================== API PÚBLICA PARA SUBSTITUIR IMAGENS ==================== */
 
@@ -1186,25 +716,3 @@ window.substituirImagens = function(novasImagens) {
     carregarImagens();
     console.log("✅ Imagens substituídas com sucesso!");
 };
-
-/* 
-Exemplo de uso (descomente para testar):
-
-substituirImagens({
-    momentos: [
-        "URL_DA_FOTO_1",
-        "URL_DA_FOTO_2",
-        "URL_DA_FOTO_3",
-        "URL_DA_FOTO_4"
-    ],
-    gostos: [
-        "URL_SLIPKNOT",
-        "URL_GATO_PRETO",
-        "URL_JAZZ",
-        "URL_MORANGO",
-        "URL_DODGE",
-        "URL_VERMELHO"
-    ],
-    joey: "URL_JOEY"
-});
-*/
